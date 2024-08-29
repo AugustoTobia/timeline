@@ -18,8 +18,8 @@ export const entries: PortafolioEntryList[] = [
 
 	{
 		image: [{ source: persecucion, alt: 'a' },],
-		title: 'entry 1',
-		description: '',
+		title: 'entry 2',
+		description: '2',
 		projectId: '2'
 
 	},
@@ -32,7 +32,7 @@ export const entries: PortafolioEntryList[] = [
 	},
 	{
 		image: [{ source: elLoco, alt: 'a' }],
-		title: 'entry 1',
+		title: 'entry 3',
 		description: 'blblblblbbbl',
 		projectId: '4'
 
@@ -40,21 +40,21 @@ export const entries: PortafolioEntryList[] = [
 
 	{
 		image: [{ source: laTorre, alt: 'a' }],
-		title: 'entry 1',
-		description: '',
+		title: 'entry 5',
+		description: 'aa',
 		projectId: '5'
 
 	},
 	{
 		image: [{ source: grifo, alt: 'a' }],
-		title: 'entry 1',
+		title: 'entry 12',
 		description: 'blblblblbbbl',
 		projectId: '6'
 
 	},
 	{
 		image: [{ source: mute, alt: 'a' }],
-		title: 'entry 1',
+		title: 'entry 11',
 		description: 'blblblblbbbl',
 		projectId: '7'
 
