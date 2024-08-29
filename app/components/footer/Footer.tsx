@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {FC} from 'react'
 import Divider from '../divider/divider'
 
-const Footer = () => {
+const Footer: FC = () => {
 	return (
 		<div className='bg-grey-base w-full justify-self-end'>
 			<Divider />
