@@ -1,9 +1,9 @@
 import Image from 'next/image';
 import React from 'react'
-import ProfilePicture from '../../common/images/profile-pic.jpg'
-import IgBlack from '../../common/svg/InstagramBlack'
+import ProfilePicture from '../../../public/images/profile-pic.jpg'
+import IgBlack from '../../../public/svg/InstagramBlack'
 import SocialMediaBar from '@/app/components/SocialMediaBar/SocialMediaBar';
-import ArtStation from '../../common/svg/artStation';
+import ArtStation from '../../../public/svg/artStation';
 
 const mediaArray = [
 	{
@@ -36,8 +36,21 @@ const TheArtist = () => {
 			<h1 className='text-grey-1 text-3xl uppercase font-black order-1 lg:hidden'>
 				Augusto Tobia
 			</h1>
-			<div className='flex flex-col items-center text-justify border-4 border-black w-full lg:w-[45%] h-full py-10 px-20'>
-				<h1 className='text-grey-1 hidden text-3xl uppercase font-black lg:block'>
+			<div 
+				className='
+					flex
+					flex-col
+					items-center
+					text-justify
+					border-4
+					border-black
+					w-full lg:w-[45%]
+					h-full
+					py-5 lg:py-10
+					px-5 lg:px-20
+				'
+			>
+				<h1 className='text-grey-1 text-3xl uppercase font-black hidden lg:block'>
 					Augusto Tobia
 				</h1>
 				<p className='overflow-hidden'>
@@ -60,8 +73,8 @@ const TheArtist = () => {
 						<h2 className={contactTitle}>phone</h2><p>+54 9 341 743 4926</p>
 					</div>
 					<div>
-						<h2 className={contactTitle}>Me in social media</h2>
-						<SocialMediaBar className='h-10 my-2' mediaArray={mediaArray} />
+						<h2 className={contactTitle}>My social media</h2>
+						<SocialMediaBar className='h-10 my-2 mx-auto w-1/2' mediaArray={mediaArray} />
 					</div>
 				</div>
 			</div>
