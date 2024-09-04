@@ -1,12 +1,12 @@
-import { PortafolioEntryList } from '@/app/common/types'
+import { PortafolioEntryList } from 'types/types'
 
-import laMuerte from '../../../public/images/la-muerte.png'
-import laTorre from '../../../public/images/la-torre.png'
-import elLoco from '../../../public/images/el-loco.png'
-import persecucion from '../../../public/images/persecucion.jpg'
-import laInvocacion from '../../../public/images/la-invocacion.jpg'
-import grifo from '../../../public/images/grifo.jpg'
-import mute from '../../../public/images/mute.jpg'
+import laMuerte from 'public/images/la-muerte.png'
+import laTorre from 'public/images/la-torre.png'
+import elLoco from 'public/images/el-loco.png'
+import persecucion from 'public/images/persecucion.jpg'
+import laInvocacion from 'public/images/la-invocacion.jpg'
+import grifo from 'public/images/grifo.jpg'
+import mute from 'public/images/mute.jpg'
 
 export const entries: PortafolioEntryList[] = [
 	{

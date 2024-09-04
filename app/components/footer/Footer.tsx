@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import Divider from '../divider/divider'
+import Divider from 'components/divider/divider'
 
 const Footer: FC = () => {
 	return (

@@ -1,11 +1,13 @@
 "use client"
-import React, { FC, createContext, useState } from 'react'
-import Header from '../components/header/Header'
-import Footer from '../components/footer/Footer';
-import ImageModal from '../components/imageModal/ImageModal';
+
+import React, { FC, useState } from 'react'
+import 'app/i18next/i18n';
+
+import Header from 'components/header/Header'
+import Footer from 'components/footer/Footer';
+import ImageModal from 'components/imageModal/ImageModal';
 import { StaticImageData } from 'next/image';
 import { ModalContext } from './ModalContext';
-
 
 const Layout: FC<Readonly<{
 	children: React.ReactNode;

@@ -2,7 +2,8 @@
 
 const nextConfig = {
 	i18n: {
-    locales: ['en-US', 'fr', 'nl-NL'],
+		debug: process.env.NODE_ENV === 'development',
+    locales: ['en-US', 'es'],
     defaultLocale: 'en-US',
   },
 	images: {

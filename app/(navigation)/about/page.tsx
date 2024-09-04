@@ -1,13 +1,13 @@
 "use client"
 import Image from 'next/image';
 import React from 'react'
-import ProfilePicture from '../../../public/images/profile-pic.jpg'
-import IgBlack from '../../../public/svg/InstagramBlack'
-import SocialMediaBar from '@/app/components/SocialMediaBar/SocialMediaBar';
-import ArtStation from '../../../public/svg/artStation';
-import '../../i18next/i18n';
+import ProfilePicture from 'public/images/profile-pic.jpg'
+import IgBlack from 'public/svg/InstagramBlack'
+import SocialMediaBar from 'components/SocialMediaBar/SocialMediaBar';
+import ArtStation from 'public/svg/artStation';
+import 'app/i18next/i18n';
 
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const mediaArray = [
 	{

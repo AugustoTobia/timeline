@@ -1,9 +1,12 @@
 "use client"
 import React, { FC, useContext } from 'react'
 import { useRouter } from 'next/navigation'
-import { IProjectParams } from '@/app/common/types'
+
+import { IProjectParams } from 'types/types'
+
+import SizedImage from 'components/SizedImage/SizedImage'
+
 import { entries } from '../entries'
-import SizedImage from '../../../components/SizedImage/SizedImage'
 import { ModalContext } from '../../ModalContext'
 
 const ProjectComponent: FC<IProjectParams> = ({ params }) => {

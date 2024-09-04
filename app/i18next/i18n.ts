@@ -1,6 +1,8 @@
 "use client"
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
+import LanguageDetector from 'i18next-browser-languagedetector'
+
 import * as en from './locales/en/translation.json'
 import * as es from './locales/es/translation.json'
 
@@ -15,6 +17,7 @@ const resources = {
 
 i18n
 	.use(initReactI18next)
+	.use(LanguageDetector)
 	.init({
 		resources,
 		lng: 'en', // language to use, more information here: https://www.i18next.com/overview/configuration-options#languages-namespaces-resources

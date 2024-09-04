@@ -1,4 +1,5 @@
 import Link from "next/link";
+import './i18next/i18n';
 
 export default function Home() {
 	const headerLinkStyles = 'uppercase text-grey-1 hover:font-black'

@@ -2,13 +2,20 @@
 import React, { FC } from 'react'
 import { usePathname } from 'next/navigation';
 import Link from 'next/link'
-import Divider from '../divider/divider'
+import Divider from 'components/divider/divider'
 import { changeLanguage } from 'i18next';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next';
 
 const Header: FC = () => {
 	const currentPath = usePathname()
 	const {t, i18n} = useTranslation();
+
+	const onLangChange = (lang: string) => {
+		changeLanguage(lang, (err, t) => {
+			if (err) return console.log('something went wrong on the translation loading', err);
+			t('key');
+		})
+	}
 
 	const linkList = [
 		{
@@ -24,13 +31,6 @@ const Header: FC = () => {
 			text: t('header.portfolio')
 		}
 	]
-
-	const onLangChange = (lang: string) => {
-		changeLanguage(lang, (err, t) => {
-			if (err) return console.log('something went wrong loading', err);
-			t('key'); // -> same as i18next.t
-		})
-	}
 
 	return (
 		<div className='fixed w-full bg-grey-base z-[30]'>
