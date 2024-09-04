@@ -21,7 +21,7 @@ const Layout: FC<Readonly<{
 	return (
 		<div className='bg-grey-base relative flex flex-col justify-between h-full w-full min-h-screen'>
 			<Header />
-			<main className='p-[2%] bg-grey-base'>
+			<main className='p-[2%] bg-grey-base mt-[5%]'>
 				<ModalContext.Provider value={{ openModal: handleOpenModal, closeModal: () => setModal(false) }} >
 					{children}
 				</ModalContext.Provider>

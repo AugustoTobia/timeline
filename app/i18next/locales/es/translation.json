@@ -1,0 +1,17 @@
+{
+	"header":{
+		"home": "Inicio",
+		"about": "Sobre mi",
+		"portfolio": "Portafolio"
+	},
+	"landing": "",
+	"about": {
+		"description": "Augusto es un talentoso ilustrador especializado en acrilicos. El usa sus habilidades para crear asombrosas imagenes de fantasia mostrando las mas atractivas escenas.",
+		"contactTitles":{
+			"email": "Email",
+			"phone": "Teléfono",
+			"media": "Mis redes sociales"
+		}
+	},
+	"portfolio": ""
+}

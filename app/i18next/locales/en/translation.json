@@ -1,0 +1,17 @@
+{
+	"header":{
+		"home": "Home",
+		"about": "About",
+		"portfolio": "Portfolio"
+	},
+	"landing": "",
+	"about": {
+		"description": "Augusto is a talented illustrator specialized in acrylic painting. He uses his abilities to create amaizing fantasy illustrations depicting the most aluring of scenes.",
+		"contactTitles":{
+			"email": "Email",
+			"phone": "Phone",
+			"media": "My Social Media"
+		}
+	},
+	"portfolio": ""
+}

@@ -12,7 +12,7 @@ const ImageModal: FC<ImageModalProps> = ({ isOpen, source, alt, onClick }) => {
 	const [ratio, setRatio] = useState(1)
 
 	return (
-		<div className={`${isOpen ? 'flex' : 'hidden'} bg-[#000d] w-full h-full absolute flex-grow cursor-pointer`} onClick={onClick}>
+		<div className={`${isOpen ? 'flex' : 'hidden'} bg-[#000d] w-full h-full absolute flex-grow cursor-pointer z-[100]`} onClick={onClick}>
 			<div className='fixed w-full h-full overflow-hidden '>
 				<Image
 					src={source}

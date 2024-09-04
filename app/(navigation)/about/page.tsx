@@ -1,9 +1,13 @@
+"use client"
 import Image from 'next/image';
 import React from 'react'
 import ProfilePicture from '../../../public/images/profile-pic.jpg'
 import IgBlack from '../../../public/svg/InstagramBlack'
 import SocialMediaBar from '@/app/components/SocialMediaBar/SocialMediaBar';
 import ArtStation from '../../../public/svg/artStation';
+import '../../i18next/i18n';
+
+import { useTranslation } from 'react-i18next';
 
 const mediaArray = [
 	{
@@ -29,6 +33,7 @@ const mediaArray = [
 ]
 
 const TheArtist = () => {
+	const { t } = useTranslation();
 
 	const contactTitle = 'uppercase font-black text-grey-1 text-center'
 	return (
@@ -36,7 +41,7 @@ const TheArtist = () => {
 			<h1 className='text-grey-1 text-3xl uppercase font-black order-1 lg:hidden'>
 				Augusto Tobia
 			</h1>
-			<div 
+			<div
 				className='
 					flex
 					flex-col
@@ -54,7 +59,7 @@ const TheArtist = () => {
 					Augusto Tobia
 				</h1>
 				<p className='overflow-hidden'>
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum
+					{t('about.description')}
 				</p>
 			</div>
 			<div className='w-full lg:w-[45%] flex flex-col px-5 items-center justify-center'>
@@ -69,11 +74,11 @@ const TheArtist = () => {
 				</div>
 				<div className='w-full flex flex-col my-2 items-center'>
 					<div className='w-1/2 flex flex-col justify-center items-center'>
-						<h2 className={contactTitle}>email</h2><p>augustotobia@gmail.com </p>
-						<h2 className={contactTitle}>phone</h2><p>+54 9 341 743 4926</p>
+						<h2 className={contactTitle}>{t('about.contactTitles.email')}</h2><p>augustotobia@gmail.com </p>
+						<h2 className={contactTitle}>{t('about.contactTitles.phone')}</h2><p>+54 9 341 743 4926</p>
 					</div>
 					<div>
-						<h2 className={contactTitle}>My social media</h2>
+						<h2 className={contactTitle}>{t('about.contactTitles.media')}</h2>
 						<SocialMediaBar className='h-10 my-2 mx-auto w-1/2' mediaArray={mediaArray} />
 					</div>
 				</div>
