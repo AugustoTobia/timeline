@@ -5,7 +5,7 @@ import { Card } from 'primereact/card';
 import { TimelineEvent } from 'common/types';
 import CustomMarker from 'components/CustomMarker';
 import { useAppContext } from "context";
-import './TimelineDemo.css';
+import './customTimeline.css';
 
 const CustomTimeline = () => {
 	const { timelineState, setTimelineState } = useAppContext()
