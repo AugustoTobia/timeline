@@ -7,11 +7,15 @@ export interface TimelineEvent {
 	icon?: string;
 	color?: string;
 	image?: string;
+	showButton: boolean;
 }
 
 export interface IContextState {
-	timelineState?: TimelineEvent[];
-	setTimelineState?: Dispatch<TimelineEvent[]>;
+	timelineState: TimelineEvent[];
+	setButtonVisibility: (currentEvent: TimelineEvent, value: boolean) => void;
+	setTimelineState: Dispatch<TimelineEvent[]>;
+	addEvent: (currentEvent: TimelineEvent, after: boolean) => void;
+	deleteEvent: (currentEvent: TimelineEvent) => void;
 }
 
 export type Props = {

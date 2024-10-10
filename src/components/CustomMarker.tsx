@@ -1,31 +1,26 @@
 "use client"
-import React from "react";
+import React, { Dispatch, useEffect, useState } from "react";
 import { TimelineEvent } from "common/types";
-import { useAppContext } from "context";
+import { TiDelete, TiPlus } from "react-icons/ti";
+import './CustomMarker.css';
+const CustomMarker = ({
+	item,
+	timelineState,
+	setButtonVisibility,
+	setTimelineState,
+	addEvent,
+	deleteEvent }: {
+		item: TimelineEvent,
+		timelineState: any,
+		setButtonVisibility: (currentEvent: TimelineEvent, value: boolean) => void,
+		setTimelineState: Dispatch<any>,
+		addEvent: (currentEvent: TimelineEvent, after: boolean) => void,
+		deleteEvent: (currentEvent: TimelineEvent) => void
+	}) => {
 
-const CustomMarker = (item: TimelineEvent) => {
-	const { timelineState, setTimelineState } = useAppContext();
-	if (!timelineState || !setTimelineState) return;
-
-	const addEvent = (currentEvent: TimelineEvent, after: boolean) => {
-		let clickedEventIndex = timelineState.indexOf(currentEvent);
-		let afterIndex = clickedEventIndex + 1
-		if (after) {
-			const newList = [
-				...timelineState.slice(0, afterIndex),
-				{ id: 5, status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' },
-				...timelineState.slice(afterIndex)
-			];
-			setTimelineState(newList);
-		} else {
-			const newList = [
-				...timelineState.slice(0, clickedEventIndex),
-				{ id: 5, status: 'Delivered', date: '16/10/2020 10:00', icon: 'pi pi-check', color: '#607D8B' },
-				...timelineState.slice(clickedEventIndex)
-			];
-			setTimelineState(newList);
-		}
-	}
+	useEffect(() => {
+		if (!timelineState || !setTimelineState) return;
+	}, [timelineState])
 
 	return (
 		<div>
@@ -37,16 +32,20 @@ const CustomMarker = (item: TimelineEvent) => {
 					mx-auto
 					mb-[2px]
 					border-circle
+					text-white
 					z-1
 					bg-black
 				"
 				onClick={() => addEvent(item, false)}
-			/>
-			<span
+			>
+				<TiPlus size={"100%"} />
+			</button>
+			<button
 				className="
 					flex
-					w-2rem
-					h-2rem
+					relative
+					w-[2rem]
+					h-[2rem]
 					align-items-center
 					justify-content-center
 					text-red
@@ -54,11 +53,12 @@ const CustomMarker = (item: TimelineEvent) => {
 					z-1
 					shadow-1
 				"
+				onClick={() => setButtonVisibility(item, !item.showButton)}
 				style={{
 					backgroundColor: item.color
 				}}>
 				<i className={item.icon}></i>
-			</span>
+			</button>
 			<button
 				className="
 					flex
@@ -66,12 +66,41 @@ const CustomMarker = (item: TimelineEvent) => {
 					h-[1rem]
 					mx-auto
 					mt-[2px]
+					text-white
 					border-circle
 					z-1
 					bg-black
 				"
 				onClick={() => addEvent(item, true)}
-			/>
+			>
+				<TiPlus size={"100%"} />
+			</button>
+
+			<button
+				onClick={() => {
+					() => setButtonVisibility(item, false)
+					deleteEvent(item)
+				}}
+				className={`
+					border-circle
+					absolute
+					top-0
+					translate-x-[90%]
+					z-1
+					w-[2rem]
+					h-[2rem]
+					align-items-center
+					justify-content-center
+					text-red-500
+					shadow-1
+					transition-opacity
+					transition ease-in-out
+					duration-300
+					${item.showButton ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0'}
+				`}
+			>
+				<TiDelete size={'100%'} />
+			</button>
 		</div>
 	);
 };

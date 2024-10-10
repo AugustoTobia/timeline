@@ -8,7 +8,14 @@ import { useAppContext } from "context";
 import './customTimeline.css';
 
 const CustomTimeline = () => {
-	const { timelineState, setTimelineState } = useAppContext()
+	const {
+		timelineState,
+		setTimelineState,
+		addEvent,
+		deleteEvent,
+		setButtonVisibility
+	} = useAppContext();
+
 	const customizedContent = (item: TimelineEvent) => {
 		return (
 			<Card title={item.status} subTitle={item.date}>
@@ -28,7 +35,14 @@ const CustomTimeline = () => {
 				value={timelineState}
 				align="alternate"
 				className="customized-timeline"
-				marker={CustomMarker}
+				marker={(item: TimelineEvent) => <CustomMarker
+					timelineState={timelineState}
+					item={item}
+					setButtonVisibility={setButtonVisibility}
+					setTimelineState={setTimelineState}
+					addEvent={addEvent}
+					deleteEvent={deleteEvent}
+				/>}
 				content={customizedContent}
 			/>
 		</div>
