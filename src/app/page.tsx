@@ -1,9 +1,9 @@
-import CustomTimeline from "components/CustomTimeline";
+import { CustomTimeline } from 'components';
 
 export default function Home() {
-	return (
-			<div className="flex flex-col">
-				<CustomTimeline />
-			</div>
-	);
+    return (
+        <div className="flex flex-col">
+            <CustomTimeline />
+        </div>
+    );
 }
