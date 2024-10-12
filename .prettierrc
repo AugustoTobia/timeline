@@ -1,9 +1,17 @@
 {
-    "importOrder": ["^components/(.*)$", "^[./]"],
-    "importOrderSeparation": true,
-    "importOrderSortSpecifiers": true,
     "tabWidth": 4,
     "semi": true,
     "singleQuote": true,
-    "endOfLine": "crlf"
+    "endOfLine": "crlf",
+    "plugins": ["@trivago/prettier-plugin-sort-imports"],
+    "importOrder": [
+        "use client",
+        "^react$",
+        "<THIRD_PARTY_MODULES>",
+        "^context|^common/(.*)",
+        "^components",
+        "^[./]"
+    ],
+    "importOrderSeparation": true,
+    "importOrderSortSpecifiers": true
 }

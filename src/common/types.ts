@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+
 export interface TimelineEvent {
     id: string;
     status?: string;

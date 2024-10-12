@@ -1,15 +1,16 @@
 import React from 'react';
+
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
-import { PrimeReactProvider } from 'primereact/api';
-
-import 'primereact/resources/themes/lara-light-cyan/theme.css';
-import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
+import 'primeicons/primeicons.css';
+import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/primereact.css';
-import './globals.css';
+import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 import { AppProvider } from 'context';
+
+import './globals.css';
 
 const geistSans = localFont({
     src: './fonts/GeistVF.woff',

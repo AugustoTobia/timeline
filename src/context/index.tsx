@@ -1,7 +1,10 @@
 'use client';
+
 import { createContext, useContext, useState } from 'react';
-import { IContextState, TimelineEvent } from 'common/types';
+
 import { v4 as uuid } from 'uuid';
+
+import { IContextState, TimelineEvent } from 'common/types';
 
 const baseEvents = [
     {

@@ -1,7 +1,11 @@
 'use client';
+
 import React, { Dispatch, useEffect } from 'react';
-import { TimelineEvent } from 'common/types';
+
 import { TiDelete, TiPlus } from 'react-icons/ti';
+
+import { TimelineEvent } from 'common/types';
+
 import './CustomMarker.css';
 
 const CustomMarker = ({
