@@ -9,7 +9,7 @@ import { TiPlus } from 'react-icons/ti';
 import { TimelineEvent } from 'common/types';
 import { useAppContext } from 'context';
 
-import { CustomMarker } from 'components';
+import { CustomMarker, EventPreviewCard } from 'components';
 
 import './customTimeline.css';
 
@@ -21,21 +21,6 @@ const CustomTimeline = () => {
         deleteEvent,
         setButtonVisibility,
     } = useAppContext();
-
-    const customizedContent = (item: TimelineEvent) => {
-        return (
-            <Card title={item.status} subTitle={item.date}>
-                {item.image && (
-                    <img
-                        src={`https://primefaces.org/cdn/primereact/images/product/${item.image}`}
-                        alt={item.image}
-                        width={200}
-                        className="shadow-1"
-                    />
-                )}
-            </Card>
-        );
-    };
 
     return (
         <div className="card">
@@ -54,7 +39,7 @@ const CustomTimeline = () => {
                             deleteEvent={deleteEvent}
                         />
                     )}
-                    content={customizedContent}
+                    content={EventPreviewCard}
                 />
             ) : (
                 <button

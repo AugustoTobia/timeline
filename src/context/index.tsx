@@ -9,35 +9,46 @@ import { IContextState, TimelineEvent } from 'common/types';
 const baseEvents = [
     {
         id: uuid(),
-        status: 'Ordered',
+        title: 'Ordered',
+        description: 'some thing is writen in here',
         date: '15/10/2020 10:30',
         icon: 'pi pi-shopping-cart',
         color: '#9C27B0',
-        image: 'game-controller.jpg',
+        relatedCharacters: [],
+        relatedLocations: [],
         showButton: false,
     },
     {
         id: uuid(),
-        status: 'Processing',
+        title: 'Processing',
+        description: 'some thing is writen in here',
         date: '15/10/2020 14:00',
         icon: 'pi pi-cog',
         color: '#673AB7',
+        relatedCharacters: [],
+        relatedLocations: [],
         showButton: false,
     },
     {
         id: uuid(),
-        status: 'Shipped',
+        title: 'Shipped',
+        description: 'some thing is writen in here',
         date: '15/10/2020 16:15',
         icon: 'pi pi-shopping-cart',
         color: '#FF9800',
+        relatedCharacters: [],
+        relatedLocations: [],
         showButton: false,
     },
     {
         id: uuid(),
-        status: 'Delivered',
+        title: 'Delivered',
+        description: 'some thing is writen in here',
         date: '16/10/2020 10:00',
         icon: 'pi pi-check',
         color: '#607D8B',
+        relatedCharacters: [],
+        relatedLocations: [],
         showButton: false,
     },
 ];
@@ -51,30 +62,28 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         const afterIndex = clickedEventIndex + 1;
         let newList = [];
 
+        const mockedEvent = {
+            id: uuid(),
+            title: 'Processing',
+            description: 'some thing is writen in here',
+            date: '15/10/2020 14:00',
+            icon: 'pi pi-cog',
+            color: '#673AB7',
+            relatedCharacters: [],
+            relatedLocations: [],
+            showButton: false,
+        };
+
         if (addAfterEvent) {
             newList = [
                 ...timelineState.slice(0, afterIndex),
-                {
-                    id: uuid(),
-                    status: 'Delivered',
-                    date: '16/10/2020 10:00',
-                    icon: 'pi pi-check',
-                    color: '#607D8B',
-                    showButton: false,
-                },
+                mockedEvent,
                 ...timelineState.slice(afterIndex),
             ];
         } else {
             newList = [
                 ...timelineState.slice(0, clickedEventIndex),
-                {
-                    id: uuid(),
-                    status: 'Delivered',
-                    date: '16/10/2020 10:00',
-                    icon: 'pi pi-check',
-                    color: '#607D8B',
-                    showButton: false,
-                },
+                mockedEvent,
                 ...timelineState.slice(clickedEventIndex),
             ];
         }
