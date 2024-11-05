@@ -3,126 +3,140 @@
 @tailwind utilities;
 
 :root {
-	--background: #ffffff;
-	--foreground: #171717;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--background: #0a0a0a;
-		--foreground: #ededed;
-	}
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
 }
 
 body {
-	color: var(--foreground);
-	background: var(--background);
-	font-family: Circular, Helvetica, Arial, sans-serif;
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Circular, Helvetica, Arial, sans-serif;
 }
 
 ul,
 ol {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 @layer utilities {
-	.text-balance {
-		text-wrap: balance;
-	}
+  .text-balance {
+    text-wrap: balance;
+  }
 
-	.scrollbar::-webkit-scrollbar {
-		width: 20px;
-		height: 20px;
-	}
+  .scrollbar::-webkit-scrollbar {
+    width: 20px;
+    height: 20px;
+  }
 
-	.scrollbar::-webkit-scrollbar-track {
-		border-radius: 100vh;
-		background: #fff;
-	}
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #fff;
+  }
 
-	.scrollbar::-webkit-scrollbar-thumb {
-		background: #cfd3f9;
-		border-radius: 100vh;
-		border: 3px solid #f6f7ed;
-	}
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #cfd3f9;
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
 
-	.scrollbar::-webkit-scrollbar-thumb:hover {
-		background: #9d8ddd;
-	}
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #9d8ddd;
+  }
 }
 
 @layer base {
-
-	@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Medium Italic'), local('CircularStd-MediumItalic'),
-        url('./fonts/Circular/CircularStd-MediumItalic.woff') format('woff2'),
-        url('./fonts/Circular/CircularStd-MediumItalic.woff') format('woff');
+    src:
+      local('Circular Std Medium Italic'),
+      local('CircularStd-MediumItalic'),
+      url('./fonts/Circular/CircularStd-MediumItalic.woff') format('woff2'),
+      url('./fonts/Circular/CircularStd-MediumItalic.woff') format('woff');
     font-weight: 500;
     font-style: italic;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Black'), local('CircularStd-Black'),
-        url('./fonts/Circular/CircularStd-Black.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-Black.woff') format('woff');
+    src:
+      local('Circular Std Black'),
+      local('CircularStd-Black'),
+      url('./fonts/Circular/CircularStd-Black.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-Black.woff') format('woff');
     font-weight: 900;
     font-style: normal;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Medium'), local('CircularStd-Medium'),
-        url('./fonts/Circular/CircularStd-Medium.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-Medium.woff') format('woff');
+    src:
+      local('Circular Std Medium'),
+      local('CircularStd-Medium'),
+      url('./fonts/Circular/CircularStd-Medium.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-Medium.woff') format('woff');
     font-weight: 500;
     font-style: normal;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Bold'), local('CircularStd-Bold'),
-        url('./fonts/Circular/CircularStd-Bold.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-Bold.woff') format('woff');
+    src:
+      local('Circular Std Bold'),
+      local('CircularStd-Bold'),
+      url('./fonts/Circular/CircularStd-Bold.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-Bold.woff') format('woff');
     font-weight: bold;
     font-style: normal;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Black Italic'), local('CircularStd-BlackItalic'),
-        url('./fonts/Circular/CircularStd-BlackItalic.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-BlackItalic.woff') format('woff');
+    src:
+      local('Circular Std Black Italic'),
+      local('CircularStd-BlackItalic'),
+      url('./fonts/Circular/CircularStd-BlackItalic.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-BlackItalic.woff') format('woff');
     font-weight: 900;
     font-style: italic;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular Std Book';
-    src: local('Circular Std Book Italic'), local('CircularStd-BookItalic'),
-        url('./fonts/Circular/CircularStd-BookItalic.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-BookItalic.woff') format('woff');
+    src:
+      local('Circular Std Book Italic'),
+      local('CircularStd-BookItalic'),
+      url('./fonts/Circular/CircularStd-BookItalic.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-BookItalic.woff') format('woff');
     font-weight: normal;
     font-style: italic;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Bold Italic'), local('CircularStd-BoldItalic'),
-        url('./fonts/Circular/CircularStd-BoldItalic.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-BoldItalic.woff') format('woff');
+    src:
+      local('Circular Std Bold Italic'),
+      local('CircularStd-BoldItalic'),
+      url('./fonts/Circular/CircularStd-BoldItalic.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-BoldItalic.woff') format('woff');
     font-weight: bold;
     font-style: italic;
-}
+  }
 
-@font-face {
+  @font-face {
     font-family: 'Circular';
-    src: local('Circular Std Book'), local('CircularStd-Book'),
-        url('./fonts/Circular/CircularStd-Book.woff2') format('woff2'),
-        url('./fonts/Circular/CircularStd-Book.woff') format('woff');
+    src:
+      local('Circular Std Book'),
+      local('CircularStd-Book'),
+      url('./fonts/Circular/CircularStd-Book.woff2') format('woff2'),
+      url('./fonts/Circular/CircularStd-Book.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-}
-
+  }
 }

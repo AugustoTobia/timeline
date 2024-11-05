@@ -13,15 +13,15 @@ We use Next.JS alongside Typescript for our project. Currently our TODO is as fo
 
 ## TODO
 
--   Create timeline component
-    -   Investigate if it can handle 2 or more events in each node.
--   Create a generic card component to showcase characters and places. This card should contain
-    -   A title
-    -   A description
-    -   A place _(or a list of aparitions)_ in the timeline
-    -   A tag to identifie the card as a character, a location or an event
-    -   A list of related characters _(it can be empty)_
-    -   A list of related places _(it can be empty)_
--   A card collection page
--   An auth flow
--   A DB setup
+- Create timeline component
+  - Investigate if it can handle 2 or more events in each node.
+- Create a generic card component to showcase characters and places. This card should contain
+  - A title
+  - A description
+  - A place _(or a list of aparitions)_ in the timeline
+  - A tag to identifie the card as a character, a location or an event
+  - A list of related characters _(it can be empty)_
+  - A list of related places _(it can be empty)_
+- A card collection page
+- An auth flow
+- A DB setup

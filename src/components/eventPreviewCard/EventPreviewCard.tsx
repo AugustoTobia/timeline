@@ -2,90 +2,42 @@
 
 import React from 'react';
 
-import { Card } from 'primereact/card';
-
 import { TimelineEvent } from 'common/types';
+import { truncateText } from 'common/utils';
+import { useAppContext } from 'context';
+import { useModalContext } from 'context/modalContext';
 
 const EventPreviewCard = (cardInfo: TimelineEvent) => {
-    const {
-        id,
-        title,
-        description,
-        date,
-        icon,
-        color,
-        showButton,
-        relatedCharacters,
-        relatedLocations,
-    } = cardInfo;
+  const { id, title, description } = cardInfo;
+  const { openModal } = useModalContext();
+  const { timelineState } = useAppContext();
 
-    return (
-        <Card
-            title={title}
-            subTitle={description}
-            className="
-			max-w-[500px]
-			m-4
-			overflow-hidden
-			ring-1
-			rounded-xl
-			shadow-xl
-			cursor-pointer
-			"
-            footer={
-                <span className="text-gray-400 justify-self-end">
-                    {' '}
-                    click for more details{' '}
-                </span>
-            }
-        >
-            {/* <div
-				className="
-				flex
-				flex
-				w-full
-				justify-evenly
-				gap-y-2
-				p-2"
-			>
-				<div
-					className="flex
-					flex-col
-					text-center
-					no-wrap
-					border-2
-					border-black
-					rounded-lg
-					p-2
-					items-center
-					no-wrap"
-				>
-					<h2 className="font-bold">Related Characters</h2>
-					<ul>
-						{relatedCharacters.map((character) => {
-							return (<li>{character.name}</li>)
-						})}
-					</ul>
-				</div>
-				<div
-					className="flex
-						flex-col
-						text-center
-						no-wrap
-						items-center
-						no-wrap"
-				>
-					<h2 className="font-bold">Related Location</h2>
-					<ul>
-						{relatedLocations.map((location) => {
-							return (<li>{location.name}</li>)
-						})}
-					</ul>
-				</div> 
-			</div>
-				*/}
-        </Card>
+  const handleClick = (itemId: string) => {
+    const clickedEvent = timelineState.events.find(
+      (event) => event.id === itemId,
     );
+    if (clickedEvent) openModal(clickedEvent);
+    else {
+      throw new Error('No event found');
+    }
+  };
+
+  return (
+    <div
+      className="m-4 max-w-[500px] cursor-pointer overflow-hidden rounded-xl px-4 py-2 shadow-xl ring-1"
+      onClick={() => {
+        handleClick(id);
+      }}
+    >
+      <h1 className="text-lg font-black uppercase">{title}</h1>
+      <p className="overflow-elipsis max-h-[100px] overflow-hidden">
+        {description && truncateText(description, 200)}
+      </p>
+      <span className="justify-self-end text-sm text-gray-400">
+        click for more details
+      </span>
+    </div>
+  );
 };
 
 export default EventPreviewCard;
