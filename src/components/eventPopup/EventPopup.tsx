@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { useAppContext } from 'context';
 import { useModalContext } from 'context/modalContext';
@@ -10,17 +10,27 @@ import { ParagraphInput, RelationsDropdown, TitleInput } from 'components';
 const listContainerClass = 'flex flex-col no-wrap items-center no-wrap';
 
 const EventPopup: FC = () => {
-	const { isModalOpen, modalData, closeModal } = useModalContext();
-	const { modifyEvent, timelineState } = useAppContext();
+	const { isModalOpen, modalData, closeModal, setModalData } =
+		useModalContext();
+	const { modifyEvent, timelineState, removeCharacterOrLocation } =
+		useAppContext();
+
+	useEffect(() => {
+		const updateModal =
+			modalData &&
+			timelineState.events.find((event) => event.id === modalData.id);
+		if (updateModal) setModalData(updateModal);
+	}, [timelineState]);
+
+	if (!modalData) return;
 
 	const handleCloseModal = () => {
-		modalData && modifyEvent(modalData);
+		modifyEvent(modalData);
 		closeModal();
 	};
 
 	return (
-		isModalOpen &&
-		modalData && (
+		isModalOpen && (
 			<div
 				onClick={() => handleCloseModal()}
 				className={`items-cente fixed z-50 flex h-full w-full justify-center bg-black bg-opacity-40`}
@@ -57,6 +67,13 @@ const EventPopup: FC = () => {
 										<li
 											className="text-sm hover:font-bold"
 											key={character.id}
+											onClick={() => {
+												removeCharacterOrLocation(
+													modalData,
+													character,
+													'character',
+												);
+											}}
 										>
 											{character.name}
 										</li>
@@ -75,6 +92,13 @@ const EventPopup: FC = () => {
 										<li
 											className="text-sm hover:font-bold"
 											key={location.id}
+											onClick={() =>
+												removeCharacterOrLocation(
+													modalData,
+													location,
+													'location',
+												)
+											}
 										>
 											{location.name}
 										</li>

@@ -38,6 +38,7 @@ export interface IContextProps {
 	deleteEvent: (currentEvent: TimelineEvent) => void;
 	modifyEvent: (newEvent: TimelineEvent) => void;
 	addCharacterOrLocation: (currentEvent: TimelineEvent, newEntry: ICharacterCard | ILocationCard) => void;
+	removeCharacterOrLocation: (currentEvent: TimelineEvent, newEntry: CardIndicator, tag: 'character' | 'location') => void;
 }
 
 export type Props = {

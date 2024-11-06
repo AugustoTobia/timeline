@@ -7,6 +7,7 @@ import { v4 as uuid } from 'uuid';
 import { mockedData } from 'common/mockedData';
 import {
 	AppState,
+	CardIndicator,
 	ICharacterCard,
 	IContextProps,
 	ILocationCard,
@@ -108,6 +109,52 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 	};
 
+	const removeCharacterOrLocation = (
+		currentEvent: TimelineEvent,
+		removing: CardIndicator,
+		tag: 'character' | 'location',
+	) => {
+		let newEvent;
+
+		if (tag === 'character') {
+			const itemInList = currentEvent.relatedCharacters.find(
+				(item) => item.id === removing.id,
+			);
+
+			if (!itemInList) throw new Error('no such item');
+			const indexToRemove = currentEvent.relatedCharacters.indexOf(itemInList);
+
+			newEvent = {
+				...currentEvent,
+				relatedCharacters: currentEvent.relatedCharacters.toSpliced(
+					indexToRemove,
+					1,
+				),
+			};
+
+			modifyEvent(newEvent);
+		}
+
+		if (tag === 'location') {
+			const itemInList = currentEvent.relatedLocations.find(
+				(item) => item.id === removing.id,
+			);
+			if (!itemInList) throw new Error('no such item');
+
+			const indexToRemove = currentEvent.relatedLocations.indexOf(itemInList);
+
+			newEvent = {
+				...currentEvent,
+				relatedLocations: currentEvent.relatedLocations.toSpliced(
+					indexToRemove,
+					1,
+				),
+			};
+
+			modifyEvent(newEvent);
+		}
+	};
+
 	return (
 		<AppContext.Provider
 			value={{
@@ -118,6 +165,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 				setButtonVisibility,
 				modifyEvent,
 				addCharacterOrLocation,
+				removeCharacterOrLocation,
 			}}
 		>
 			{children}
