@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 import { useAppContext } from 'context';
 import { useModalContext } from 'context/modalContext';
 
-import { RelationsDropdown, ParagraphInput, TitleInput } from 'components';
+import { ParagraphInput, RelationsDropdown, TitleInput } from 'components';
 
 const listContainerClass = 'flex flex-col no-wrap items-center no-wrap';
 
@@ -47,7 +47,10 @@ const EventPopup: FC = () => {
 
 					<div className="space-between flex items-start gap-x-2 md:flex-col">
 						<div className={`${listContainerClass}`}>
-							<RelationsDropdown currentEvent={modalData} options={timelineState.charactersList} />
+							<RelationsDropdown
+								currentEvent={modalData}
+								options={timelineState.charactersList}
+							/>
 							<ul className="w-full p-2">
 								{modalData.relatedCharacters.map((character) => {
 									return (
@@ -62,7 +65,10 @@ const EventPopup: FC = () => {
 							</ul>
 						</div>
 						<div className={listContainerClass}>
-							<RelationsDropdown currentEvent={modalData} options={timelineState.locationsList} />
+							<RelationsDropdown
+								currentEvent={modalData}
+								options={timelineState.locationsList}
+							/>
 							<ul className="w-full p-2">
 								{modalData.relatedLocations.map((location) => {
 									return (

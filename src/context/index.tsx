@@ -5,7 +5,13 @@ import { createContext, useContext, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 
 import { mockedData } from 'common/mockedData';
-import { AppState, ICharacterCard, IContextProps, ILocationCard, TimelineEvent } from 'common/types';
+import {
+	AppState,
+	ICharacterCard,
+	IContextProps,
+	ILocationCard,
+	TimelineEvent,
+} from 'common/types';
 
 const mockedEvent = {
 	id: uuid(),
@@ -76,26 +82,31 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		});
 	};
 
-	const addCharacterOrLocation = (currentEvent: TimelineEvent, newEntry: ICharacterCard | ILocationCard) => {
+	const addCharacterOrLocation = (
+		currentEvent: TimelineEvent,
+		newEntry: ICharacterCard | ILocationCard,
+	) => {
 		const newEvent = currentEvent;
 
 		if (newEntry?.tag === 'character') {
-			const repetedCharacter = newEvent.relatedCharacters.find(item => item.id === newEntry.id)
+			const repetedCharacter = newEvent.relatedCharacters.find(
+				(item) => item.id === newEntry.id,
+			);
 			if (!repetedCharacter) {
-				newEvent.relatedCharacters.push(newEntry)
-				modifyEvent(newEvent)
+				newEvent.relatedCharacters.push(newEntry);
+				modifyEvent(newEvent);
 			}
-
 		}
 		if (newEntry?.tag === 'location') {
-			const repetedLocation = newEvent.relatedLocations.find(item => item.id === newEntry.id)
+			const repetedLocation = newEvent.relatedLocations.find(
+				(item) => item.id === newEntry.id,
+			);
 			if (!repetedLocation) {
-				newEvent.relatedLocations.push(newEntry)
-				modifyEvent(newEvent)
+				newEvent.relatedLocations.push(newEntry);
+				modifyEvent(newEvent);
 			}
 		}
-	}
-
+	};
 
 	return (
 		<AppContext.Provider

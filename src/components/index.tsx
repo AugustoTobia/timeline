@@ -8,12 +8,12 @@ import EventPreviewCard from './eventPreviewCard/EventPreviewCard';
 import RelationsDropdown from './relationsDropdown/RelationsDropdown';
 
 export {
-  Card,
-  CustomMarker,
-  CustomTimeline,
-  EventPreviewCard,
-  EventPopup,
-  ParagraphInput,
-  TitleInput,
-	RelationsDropdown
+	Card,
+	CustomMarker,
+	CustomTimeline,
+	EventPreviewCard,
+	EventPopup,
+	ParagraphInput,
+	TitleInput,
+	RelationsDropdown,
 };
