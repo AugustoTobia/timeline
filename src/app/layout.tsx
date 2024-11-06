@@ -1,7 +1,6 @@
 import React from 'react';
 
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from 'primereact/api';

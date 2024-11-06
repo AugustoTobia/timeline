@@ -1,8 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { mockedData } from 'common/mockedData';
-
-import { CustomTimeline, EventPopup, EventPreviewCard } from 'components';
+import { CustomTimeline, EventPopup } from 'components';
 
 const mockedEvent = {
 	id: uuid(),

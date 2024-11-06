@@ -47,7 +47,7 @@ const TitleInput: FC<ITextInput> = ({
 			allowResizeY: false,
 			hidePoweredByJodit: true,
 		}),
-		[],
+		[overrideOptions],
 	);
 
 	if (!modalData) return;

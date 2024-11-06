@@ -2,7 +2,6 @@
 
 import React from 'react';
 
-import { Card } from 'primereact/card';
 import { Timeline } from 'primereact/timeline';
 import { TiPlus } from 'react-icons/ti';
 
@@ -16,7 +15,6 @@ import './customTimeline.css';
 const CustomTimeline = () => {
 	const {
 		timelineState,
-		setTimelineState,
 		addEvent,
 		deleteEvent,
 		setButtonVisibility,

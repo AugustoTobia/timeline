@@ -71,7 +71,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const modifyEvent = (newEvent: TimelineEvent) => {
 		setTimelineState((oldState) => {
-			let oldEvent = oldState.events.find((event) => event.id === newEvent.id);
+			const oldEvent = oldState.events.find((event) => event.id === newEvent.id);
 			if (!oldEvent) throw new Error('event non existing');
 			const eventIndex = oldState.events.indexOf(oldEvent);
 			const newState = {

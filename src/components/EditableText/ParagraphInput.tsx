@@ -3,7 +3,7 @@
 import React, { FC, useMemo, useRef, useState } from 'react';
 
 import HTMLReactParser from 'html-react-parser/lib/index';
-import JoditEditor, { IJoditEditorProps, Jodit } from 'jodit-react';
+import JoditEditor, { IJoditEditorProps } from 'jodit-react';
 import { TiEdit, TiInputChecked } from 'react-icons/ti';
 
 import { joditOptions } from 'common/consts';
@@ -21,7 +21,6 @@ const ParagraphInput: FC<ITextInput> = ({
 	const { setModalData, modalData } = useModalContext();
 	const [state, setState] = useState(false);
 
-	if (!modalData) return;
 	const config = useMemo<IJoditEditorProps['config']>(
 		() => ({
 			readonly: false,
@@ -46,8 +45,10 @@ const ParagraphInput: FC<ITextInput> = ({
 			indentMargin: 10,
 			editorClassName: 'scrollbar',
 		}),
-		[],
+		[overrideOptions],
 	);
+
+	if (!modalData) return;
 
 	const handleClick = () => {
 		setState(!state);

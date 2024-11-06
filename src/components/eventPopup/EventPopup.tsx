@@ -20,7 +20,7 @@ const EventPopup: FC = () => {
 			modalData &&
 			timelineState.events.find((event) => event.id === modalData.id);
 		if (updateModal) setModalData(updateModal);
-	}, [timelineState]);
+	}, [timelineState, modalData, setModalData]);
 
 	if (!modalData) return;
 

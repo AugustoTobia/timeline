@@ -22,7 +22,7 @@ const RelationsDropdown: FC<{
 
 	const handleSelect = (optionId: string | undefined) => {
 		const selectedOption = options.find((item) => item.id === optionId);
-		selectedOption && addCharacterOrLocation(currentEvent, selectedOption);
+		if (selectedOption) addCharacterOrLocation(currentEvent, selectedOption);
 		setIsOpen(false);
 	};
 	const isCharacter = options[0].tag === 'character';
@@ -33,7 +33,7 @@ const RelationsDropdown: FC<{
 				const itemFound = currentEvent.relatedCharacters.find(
 					(option) => item.id === option.id,
 				);
-				!itemFound && accumulator.push(item);
+				if (!itemFound) accumulator.push(item);
 				return accumulator;
 			}, [] as CardIndicator[]);
 		} else {
@@ -41,7 +41,7 @@ const RelationsDropdown: FC<{
 				const itemFound = currentEvent.relatedLocations.find(
 					(option) => item.id === option.id,
 				);
-				!itemFound && accumulator.push(item);
+				if (!itemFound) accumulator.push(item);
 				return accumulator;
 			}, [] as CardIndicator[]);
 		}
@@ -101,7 +101,7 @@ const RelationsDropdown: FC<{
 						className="cursor-pointer italic text-gray-400"
 						onClick={() => setIsOpen(false)}
 					>
-						It's empty
+						The list is empty
 					</li>
 				)}
 			</ul>
