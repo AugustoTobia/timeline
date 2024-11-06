@@ -48,7 +48,7 @@ const RelationsDropdown: FC<{
 	};
 
 	return (
-		<div className="rounded-lg bg-red-200">
+		<div className="rounded-lg bg-red-200 w-full">
 			<button
 				name="options"
 				onClick={() => {

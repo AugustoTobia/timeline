@@ -3,7 +3,7 @@
 import React from 'react';
 
 import { TimelineEvent } from 'common/types';
-import { truncateText } from 'common/utils';
+import { trimText } from 'common/utils';
 import { useAppContext } from 'context';
 import { useModalContext } from 'context/modalContext';
 
@@ -31,7 +31,7 @@ const EventPreviewCard = (cardInfo: TimelineEvent) => {
 		>
 			<h1 className="text-lg font-black uppercase">{title}</h1>
 			<p className="overflow-elipsis max-h-[100px] overflow-hidden">
-				{description && truncateText(description, 200)}
+				{description && trimText(description, 200)}
 			</p>
 			<span className="justify-self-end text-sm text-gray-400">
 				click for more details

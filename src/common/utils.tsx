@@ -1,3 +1,3 @@
-export const truncateText = (text: string, chLimit: number) => {
-	return text.length > chLimit ? text.slice(1, chLimit) + '...' : text;
+export const trimText = (text: string, chLimit: number) => {
+	return text.length > chLimit ? text.slice(0, chLimit) + '...' : text;
 };

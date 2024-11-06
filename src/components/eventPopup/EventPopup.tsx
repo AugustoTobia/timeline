@@ -4,10 +4,12 @@ import React, { FC, useEffect } from 'react';
 
 import { useAppContext } from 'context';
 import { useModalContext } from 'context/modalContext';
+import { MdDelete } from "react-icons/md";
 
 import { ParagraphInput, RelationsDropdown, TitleInput } from 'components';
+import { trimText } from 'common/utils';
 
-const listContainerClass = 'flex flex-col no-wrap items-center no-wrap';
+const listContainerClass = 'flex flex-col no-wrap items-center w-full';
 
 const EventPopup: FC = () => {
 	const { isModalOpen, modalData, closeModal, setModalData } =
@@ -65,17 +67,22 @@ const EventPopup: FC = () => {
 								{modalData.relatedCharacters.map((character) => {
 									return (
 										<li
-											className="text-sm hover:font-bold"
+											className="text-sm flex justify-between hover:font-bold"
 											key={character.id}
-											onClick={() => {
+										>
+											{trimText(character.name, 12)}
+											<button onClick={() =>
 												removeCharacterOrLocation(
 													modalData,
 													character,
 													'character',
-												);
-											}}
-										>
-											{character.name}
+												)
+											}>
+												<MdDelete
+													size={'80%'}
+													className="align-self-end w-[1.5rem]"
+													color="black" />
+											</button>
 										</li>
 									);
 								})}
@@ -90,17 +97,22 @@ const EventPopup: FC = () => {
 								{modalData.relatedLocations.map((location) => {
 									return (
 										<li
-											className="text-sm hover:font-bold"
+											className="text-sm flex justify-between hover:font-bold"
 											key={location.id}
-											onClick={() =>
+										>
+											{trimText(location.name, 12)}
+											<button onClick={() =>
 												removeCharacterOrLocation(
 													modalData,
 													location,
 													'location',
 												)
-											}
-										>
-											{location.name}
+											}>
+												<MdDelete
+													size={'80%'}
+													className="align-self-end w-[1.5rem]"
+													color="black" />
+											</button>
 										</li>
 									);
 								})}
