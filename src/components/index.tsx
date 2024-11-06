@@ -5,6 +5,7 @@ import CustomMarker from './customMarker/CustomMarker';
 import CustomTimeline from './customTimeline/CustomTimeline';
 import EventPopup from './eventPopup/EventPopup';
 import EventPreviewCard from './eventPreviewCard/EventPreviewCard';
+import RelationsDropdown from './relationsDropdown/RelationsDropdown';
 
 export {
   Card,
@@ -14,4 +15,5 @@ export {
   EventPopup,
   ParagraphInput,
   TitleInput,
+	RelationsDropdown
 };
