@@ -8,18 +8,28 @@ import { MdDelete } from "react-icons/md";
 
 import { ParagraphInput, RelationsDropdown, TitleInput } from 'components';
 import { trimText } from 'common/utils';
+import { createPortal } from 'react-dom';
 
 const listContainerClass = 'flex flex-col no-wrap items-center w-full';
 
 const EventPopup: FC = () => {
-	const { isModalOpen, modalData, closeModal, setModalData } =
-		useModalContext();
-	const { modifyEvent, timelineState, removeCharacterOrLocation } =
-		useAppContext();
+	const {
+		isModalOpen,
+		modalData,
+		closeModal,
+		setModalData
+
+	} = useModalContext();
+
+	const {
+		modifyEvent,
+		timelineState,
+		removeCharacterOrLocation
+
+	} = useAppContext();
 
 	useEffect(() => {
-		const updateModal =
-			modalData &&
+		const updateModal = modalData &&
 			timelineState.events.find((event) => event.id === modalData.id);
 		if (updateModal) setModalData(updateModal);
 	}, [timelineState, modalData, setModalData]);
@@ -32,7 +42,7 @@ const EventPopup: FC = () => {
 	};
 
 	return (
-		isModalOpen && (
+		isModalOpen && createPortal(
 			<div
 				onClick={() => handleCloseModal()}
 				className={`items-cente fixed z-50 flex h-full w-full justify-center bg-black bg-opacity-40`}
@@ -68,9 +78,10 @@ const EventPopup: FC = () => {
 									return (
 										<li
 											className="text-sm flex justify-between hover:font-bold"
+											title={character.name}
 											key={character.id}
 										>
-											{trimText(character.name, 12)}
+											{trimText(character.name, 10)}
 											<button onClick={() =>
 												removeCharacterOrLocation(
 													modalData,
@@ -98,9 +109,10 @@ const EventPopup: FC = () => {
 									return (
 										<li
 											className="text-sm flex justify-between hover:font-bold"
+											title={location.name}
 											key={location.id}
 										>
-											{trimText(location.name, 12)}
+											{trimText(location.name, 10)}
 											<button onClick={() =>
 												removeCharacterOrLocation(
 													modalData,
@@ -120,8 +132,7 @@ const EventPopup: FC = () => {
 						</div>
 					</div>
 				</div>
-			</div>
-		)
+			</div>, document.getElementById('modal-container')! )
 	);
 };
 

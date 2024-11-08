@@ -9,6 +9,7 @@ import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 import { AppProvider } from 'context';
 import { ModalProvider } from 'context/modalContext';
+import { EventPopup } from 'components';
 
 import './globals.css';
 
@@ -21,9 +22,13 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang="en">
 			<body className={`antialiased`}>
+				<div id='modal-container' className='absolute' />
 				<PrimeReactProvider>
 					<AppProvider>
-						<ModalProvider>{children}</ModalProvider>
+						<ModalProvider>
+							{children}
+							<EventPopup />
+						</ModalProvider>
 					</AppProvider>
 				</PrimeReactProvider>
 			</body>

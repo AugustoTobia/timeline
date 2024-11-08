@@ -33,7 +33,7 @@ const RelationsDropdown: FC<{
 				const itemFound = currentEvent.relatedCharacters.find(
 					(option) => item.id === option.id,
 				);
-				if (!itemFound) accumulator.push(item);
+				if (!itemFound) accumulator = [...accumulator, item];
 				return accumulator;
 			}, [] as CardIndicator[]);
 		} else {
@@ -41,7 +41,7 @@ const RelationsDropdown: FC<{
 				const itemFound = currentEvent.relatedLocations.find(
 					(option) => item.id === option.id,
 				);
-				if (!itemFound) accumulator.push(item);
+				if (!itemFound) accumulator = [...accumulator, item];
 				return accumulator;
 			}, [] as CardIndicator[]);
 		}
