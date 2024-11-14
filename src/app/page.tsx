@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
 
-import { CustomTimeline, EventPopup } from 'components';
+import { CustomTimeline, EditPopup } from 'components';
 
 const mockedEvent = {
 	id: uuid(),
@@ -24,7 +24,7 @@ export default function Home() {
 	return (
 		<div className="flex flex-col py-4">
 			<CustomTimeline />
-			<EventPopup />
+			<EditPopup />
 			{/* <div className='w-full flex justify-center'>
 			</div> */}
 		</div>

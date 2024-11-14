@@ -4,18 +4,21 @@ export const mockedData: AppState = {
 	events: [
 		{
 			id: '11',
-			title: 'Race on the great white',
+			name: 'Race on the great white',
 			description: 'A Race hosted on the great salar',
 			date: '15/10/2020 10: 30',
 			icon: 'pi pi-shopping-cart',
+			tag: 'event',
 			color: '#9C27B0',
 			relatedCharacters: [
 				{
 					id: '21',
+					tag: 'character',
 					name: 'Bob Bubbleboms',
 				},
 				{
 					id: '22',
+					tag: 'character',
 					name: 'Sonrisas',
 				},
 			],
@@ -23,16 +26,18 @@ export const mockedData: AppState = {
 				{
 					id: '31',
 					name: 'The great salar',
+					tag: 'location',
 				},
 			],
 			showButton: false,
 		},
 		{
 			id: '12',
-			title: 'Processing',
+			name: 'Processing',
 			description: 'some thing is writen in here',
 			date: '15/10/2020 14: 00',
 			icon: 'pi pi-cog',
+			tag: 'event',
 			color: '#673AB7',
 			relatedCharacters: [],
 			relatedLocations: [],
@@ -40,10 +45,11 @@ export const mockedData: AppState = {
 		},
 		{
 			id: '13',
-			title: 'Shipped',
+			name: 'Shipped',
 			description: 'some thing is writen in here',
 			date: '15/10/2020 16: 15',
 			icon: 'pi pi-shopping-cart',
+			tag: 'event',
 			color: '#FF9800',
 			relatedCharacters: [],
 			relatedLocations: [],
@@ -51,10 +57,11 @@ export const mockedData: AppState = {
 		},
 		{
 			id: '14',
-			title: 'Delivered',
+			name: 'Delivered',
 			description: 'some thing is writen in here',
 			date: '16/10/2020 10: 00',
 			icon: 'pi pi-check',
+			tag: 'event',
 			color: '#607D8B',
 			relatedCharacters: [],
 			relatedLocations: [],
@@ -67,15 +74,17 @@ export const mockedData: AppState = {
 			name: 'Bob Bubbleboms',
 			tag: 'character',
 			description: 'A little gnome addicted to speed',
-			relatedDates: [
+			relatedEvents: [
 				{
 					id: '11',
-					title: 'Race on the great white',
+					tag: 'event',
+					name: 'Race on the great white',
 				},
 			],
 			relatedCharacters: [
 				{
 					id: '22',
+					tag: 'character',
 					name: 'Sonrisas',
 				},
 			],
@@ -83,14 +92,8 @@ export const mockedData: AppState = {
 				{
 					id: '31',
 					name: 'The great salar',
-				},
-				{
-					id: '31',
-					name: 'The great salar',
-				},
-				{
-					id: '31',
-					name: 'The great salar',
+					tag: 'location',
+
 				},
 			],
 		},
@@ -100,15 +103,17 @@ export const mockedData: AppState = {
 			tag: 'character',
 			description:
 				'A six legged white crocodile with a predilection for running',
-			relatedDates: [
+			relatedEvents: [
 				{
 					id: '11',
-					title: 'Race on the great white',
+					tag: 'event',
+					name: 'Race on the great white',
 				},
 			],
 			relatedCharacters: [
 				{
 					id: '21',
+					tag: 'character',
 					name: 'Bob Bubbleboms',
 				},
 			],
@@ -116,14 +121,18 @@ export const mockedData: AppState = {
 				{
 					id: '31',
 					name: 'The great salar',
+					tag: 'location',
+
 				},
 				{
 					id: '32',
 					name: 'The Old Mountain',
+					tag: 'location',
 				},
 				{
 					id: '33',
 					name: 'The Red forest',
+					tag: 'location',
 				},
 			],
 		},
@@ -134,18 +143,21 @@ export const mockedData: AppState = {
 			name: 'Great Salar',
 			tag: 'location',
 			description: 'A little gnome addicted to speed',
-			relatedDates: [
+			relatedEvents: [
 				{
 					id: '1',
-					title: 'Race on the great white',
+					tag: 'event',
+					name: 'Race on the great white',
 				},
 			],
 			relatedCharacters: [
 				{
 					id: '1',
+					tag: 'character',
 					name: 'Sonrisas',
 				},
 				{
+					tag: 'character',
 					name: 'Bob Bubbleboms',
 					id: '0',
 				},
@@ -154,14 +166,17 @@ export const mockedData: AppState = {
 				{
 					id: '1',
 					name: 'The great salar',
+					tag: 'location',
 				},
 				{
 					id: '1',
 					name: 'The Old Mountain',
+					tag: 'location',
 				},
 				{
 					id: '1',
 					name: 'The Red forest',
+					tag: 'location',
 				},
 			],
 		},
@@ -170,19 +185,22 @@ export const mockedData: AppState = {
 			name: 'The Old Mountain',
 			tag: 'location',
 			description: 'A great old mountain colored yellow ',
-			relatedDates: [
+			relatedEvents: [
 				{
 					id: '11',
-					title: 'Race on the great white',
+					tag: 'event',
+					name: 'Race on the great white',
 				},
 			],
 			relatedCharacters: [
 				{
 					id: '22',
 					name: 'Sonrisas',
+					tag: 'character'
 				},
 				{
 					name: 'Bob Bubbleboms',
+					tag: 'character',
 					id: '21',
 				},
 			],
@@ -190,14 +208,17 @@ export const mockedData: AppState = {
 				{
 					id: '11',
 					name: 'The great salar',
+					tag: 'location',
 				},
 				{
 					id: '32',
 					name: 'The Old Mountain',
+					tag: 'location',
 				},
 				{
 					id: '33',
 					name: 'The Red forest',
+					tag: 'location',
 				},
 			],
 		},
@@ -206,34 +227,40 @@ export const mockedData: AppState = {
 			name: 'The Red forest',
 			tag: 'location',
 			description: 'A beautifull but terrifying red forest',
-			relatedDates: [
+			relatedEvents: [
 				{
-					id: '1',
-					title: 'Race on the great white',
+					id: '11',
+					tag: 'event',
+					name: 'Race on the great white',
 				},
 			],
 			relatedCharacters: [
 				{
-					id: '1',
+					id: '22',
 					name: 'Sonrisas',
+					tag: 'character',
 				},
 				{
+					id: '21',
 					name: 'Bob Bubbleboms',
-					id: '0',
+					tag: 'character',
 				},
 			],
 			relatedLocations: [
 				{
-					id: '1',
+					id: '31',
 					name: 'The great salar',
+					tag: 'location',
 				},
 				{
-					id: '1',
+					id: '32',
 					name: 'The Old Mountain',
+					tag: 'location',
 				},
 				{
-					id: '1',
+					id: '33',
 					name: 'The Red forest',
+					tag: 'location',
 				},
 			],
 		},

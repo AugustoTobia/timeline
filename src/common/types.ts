@@ -6,26 +6,23 @@ export interface AppState {
 	locationsList: ILocationCard[];
 }
 
-export interface TimelineEvent {
-	id: string;
-	title?: string;
-	description?: string;
+export interface TimelineEvent extends EventCard {
 	date?: string;
 	icon?: string;
 	color?: string;
-	relatedCharacters: CardIndicator[];
-	relatedLocations: CardIndicator[];
 	showButton?: boolean;
 }
 
-type EventIndicator = Pick<TimelineEvent, 'id' | 'title'>;
-export type CardIndicator = Pick<ICard, 'id' | 'name'>;
+export interface EventCard extends ICard {
+	tag: 'event';
+}
+
+export type CardIndicator = Pick<ICard, 'id' | 'name' | 'tag'>;
 export interface ICard {
 	id: string;
 	name: string;
-	tag: 'character' | 'location';
+	tag: 'character' | 'location' | 'event';
 	description: string;
-	relatedDates: EventIndicator[];
 	relatedCharacters: CardIndicator[];
 	relatedLocations: CardIndicator[];
 }
@@ -37,8 +34,9 @@ export interface IContextProps {
 	addEvent: (currentEvent: number, addAfterEvent: boolean) => void;
 	deleteEvent: (currentEvent: TimelineEvent) => void;
 	modifyEvent: (newEvent: TimelineEvent) => void;
-	addCharacterOrLocation: (currentEvent: TimelineEvent, newEntry: ICharacterCard | ILocationCard) => void;
-	removeCharacterOrLocation: (currentEvent: TimelineEvent, newEntry: CardIndicator, tag: 'character' | 'location') => void;
+	addRelation: (currentEvent: TimelineEvent | ICharacterOrLocation, newEntry: ICharacterOrLocation | TimelineEvent) => void;
+	removeRelation: (currentEvent: TimelineEvent | ICharacterOrLocation, newEntry: CardIndicator) => void;
+	modifyEntity: (newEntity: TimelineEvent | ICharacterOrLocation) => void;
 }
 
 export type Props = {
@@ -53,13 +51,17 @@ export interface ITextInput {
 	width?: number;
 	allowOverflow?: boolean;
 	overrideOptions?: string;
+	onBlur: (newConter: string) => void;
 }
 
-export interface ICharacterCard extends ICard {
+export interface ICharacterOrLocation extends ICard {
+	relatedEvents: CardIndicator[];
+}
+export interface ICharacterCard extends ICharacterOrLocation {
 	tag: 'character';
 }
 
-export interface ILocationCard extends ICard {
+export interface ILocationCard extends ICharacterOrLocation {
 	tag: 'location';
 }
 
@@ -78,9 +80,25 @@ export interface ICustomMarker {
 }
 
 export interface IModalContextProps {
-	openModal: (eventData: TimelineEvent) => void;
+	openModal: (eventData: TimelineEvent | ICharacterOrLocation) => void;
 	closeModal: () => void;
-	setModalData: (newData: TimelineEvent) => void;
+	setModalData: (newData: TimelineEvent | ICharacterOrLocation) => void;
 	isModalOpen: boolean;
-	modalData: TimelineEvent | null;
+	modalData: TimelineEvent | ICharacterOrLocation | null;
+}
+
+export enum entities {
+	location = 'locationsList',
+	character = 'charactersList',
+	event = 'events'
+}
+
+export enum eventRelations {
+	character = 'relatedCharacters',
+	location = 'relatedLocations',
+}
+export enum characterOrLocationRelations {
+	character = 'relatedCharacters',
+	location = 'relatedLocations',
+	event = 'relatedEvents'
 }

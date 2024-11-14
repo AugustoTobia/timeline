@@ -2,15 +2,15 @@
 
 import { createContext, useContext, useState } from 'react';
 
-import { IModalContextProps, TimelineEvent } from 'common/types';
+import { ICharacterOrLocation, IModalContextProps, TimelineEvent } from 'common/types';
 
 export const ModalContext = createContext<IModalContextProps | null>(null);
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isModalOpen, setModal] = useState<boolean>(true);
-	const [modalData, setModalData] = useState<TimelineEvent | null>(null);
+	const [modalData, setModalData] = useState<TimelineEvent | ICharacterOrLocation | null>(null);
 
-	const handleOpenModal = (eventData: TimelineEvent) => {
+	const handleOpenModal = (eventData: TimelineEvent | ICharacterOrLocation) => {
 		setModalData(eventData);
 		setModal(true);
 	};

@@ -15,10 +15,10 @@ const ParagraphInput: FC<ITextInput> = ({
 	initialText = 'Start Typing!',
 	semanticTag: Tag = 'div',
 	overrideOptions,
+	onBlur
 }) => {
 	const editor = useRef(null);
 
-	const { setModalData, modalData } = useModalContext();
 	const [state, setState] = useState(false);
 
 	const config = useMemo<IJoditEditorProps['config']>(
@@ -48,8 +48,6 @@ const ParagraphInput: FC<ITextInput> = ({
 		[overrideOptions],
 	);
 
-	if (!modalData) return;
-
 	const handleClick = () => {
 		setState(!state);
 	};
@@ -61,14 +59,9 @@ const ParagraphInput: FC<ITextInput> = ({
 					<div className="flex items-end">
 						<JoditEditor
 							ref={editor}
-							value={modalData.description || initialText}
+							value={initialText}
 							config={config}
-							onBlur={(newContent) =>
-								setModalData({
-									...modalData,
-									description: newContent,
-								})
-							}
+							onBlur={(newContent) => onBlur(newContent)}
 							className="scrollbar"
 						/>
 						<button
@@ -86,9 +79,7 @@ const ParagraphInput: FC<ITextInput> = ({
 						<Tag
 							className={`scrollbar max-h-[200px] max-w-[500px] overflow-y-scroll`}
 						>
-							{modalData.description
-								? HTMLReactParser(modalData.description)
-								: initialText}
+							{HTMLReactParser(initialText)}
 						</Tag>
 						<button
 							onClick={handleClick}

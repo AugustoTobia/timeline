@@ -4,47 +4,56 @@ import React, { FC, useState } from 'react';
 
 import { BiSolidUserPlus } from 'react-icons/bi';
 import { MdAddLocation } from 'react-icons/md';
+import { TbTimelineEventPlus } from "react-icons/tb";
 
 import {
 	CardIndicator,
 	ICharacterCard,
+	ICharacterOrLocation,
 	ILocationCard,
 	TimelineEvent,
 } from 'common/types';
 import { useAppContext } from 'context';
 
 const RelationsDropdown: FC<{
-	currentEvent: TimelineEvent;
-	options: ILocationCard[] | ICharacterCard[];
-}> = ({ currentEvent, options }) => {
+	currentEntity: TimelineEvent | ICharacterOrLocation;
+	options: ILocationCard[] | ICharacterCard[] | TimelineEvent[];
+}> = ({ currentEntity, options }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const { addCharacterOrLocation } = useAppContext();
+	const { addRelation } = useAppContext();
 
 	const handleSelect = (optionId: string | undefined) => {
 		const selectedOption = options.find((item) => item.id === optionId);
-		if (selectedOption) addCharacterOrLocation(currentEvent, selectedOption);
+		if (selectedOption) addRelation(currentEntity, selectedOption);
 		setIsOpen(false);
 	};
-	const isCharacter = options[0].tag === 'character';
 
 	const filteredOptions = () => {
-		if (isCharacter) {
-			return options.reduce((accumulator, item) => {
-				const itemFound = currentEvent.relatedCharacters.find(
+		if (options[0].tag === 'character') {
+			return options.reduce((list, item) => {
+				const itemFound = currentEntity.relatedCharacters.find(
 					(option) => item.id === option.id,
 				);
-				if (!itemFound) accumulator = [...accumulator, item];
-				return accumulator;
+				if (!itemFound) list = [...list, item];
+				return list;
 			}, [] as CardIndicator[]);
-		} else {
-			return options.reduce((accumulator, item) => {
-				const itemFound = currentEvent.relatedLocations.find(
+		} else if (options[0].tag === 'location') {
+			return options.reduce((list, item) => {
+				const itemFound = currentEntity.relatedLocations.find(
 					(option) => item.id === option.id,
 				);
-				if (!itemFound) accumulator = [...accumulator, item];
-				return accumulator;
+				if (!itemFound) list = [...list, item];
+				return list;
 			}, [] as CardIndicator[]);
-		}
+		} else if (currentEntity.tag !== 'event' && options[0].tag === 'event') {
+			return options.reduce((list, item) => {
+				const itemFound = currentEntity.relatedEvents.find(
+					(option) => item.id === option.id,
+				);
+				if (!itemFound) list = [...list, item];
+				return list;
+			}, [] as CardIndicator[]);
+		} else return []
 	};
 
 	return (
@@ -56,7 +65,7 @@ const RelationsDropdown: FC<{
 				}}
 				className="relative flex p-2"
 			>
-				{isCharacter ? (
+				{options[0].tag === 'character' ? (
 					<div className="flex items-center justify-center gap-x-2">
 						<BiSolidUserPlus
 							size={'100%'}
@@ -67,7 +76,7 @@ const RelationsDropdown: FC<{
 							Characters
 						</span>
 					</div>
-				) : (
+				) : options[0].tag === 'location' ? (
 					<div className="flex items-center justify-center gap-x-2">
 						<MdAddLocation
 							size={'100%'}
@@ -78,7 +87,16 @@ const RelationsDropdown: FC<{
 							Locations
 						</span>
 					</div>
-				)}
+				) : <div className="flex items-center justify-center gap-x-2">
+					<TbTimelineEventPlus
+						size={'100%'}
+						className="align-self-end w-[1.5rem]"
+						color="black"
+					/>
+					<span className="text-sm font-black uppercase text-white">
+						Events
+					</span>
+				</div>}
 			</button>
 			<ul
 				className={`${isOpen ? 'flex' : 'hidden'} absolute z-50 flex-col rounded-b-lg bg-white p-2 shadow-lg`}

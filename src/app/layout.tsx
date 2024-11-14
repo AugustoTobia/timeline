@@ -9,7 +9,7 @@ import 'primereact/resources/themes/lara-light-cyan/theme.css';
 
 import { AppProvider } from 'context';
 import { ModalProvider } from 'context/modalContext';
-import { EventPopup } from 'components';
+import { EditPopup } from 'components';
 
 import './globals.css';
 
@@ -27,7 +27,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 					<AppProvider>
 						<ModalProvider>
 							{children}
-							<EventPopup />
+							<EditPopup />
 						</ModalProvider>
 					</AppProvider>
 				</PrimeReactProvider>

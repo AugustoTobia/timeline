@@ -15,10 +15,10 @@ const TitleInput: FC<ITextInput> = ({
 	initialText = 'Start Typing!',
 	semanticTag: Tag = 'div',
 	overrideOptions,
+	onBlur
 }) => {
 	const editor = useRef(null);
 
-	const { setModalData, modalData } = useModalContext();
 	const [state, setState] = useState(false);
 
 	const config = useMemo<IJoditEditorProps['config']>(
@@ -26,6 +26,7 @@ const TitleInput: FC<ITextInput> = ({
 			readonly: false,
 			placeholder: '',
 			defaultActionOnPaste: 'insert_as_text',
+			beautifyHTML: true,
 			defaultLineHeight: 1.5,
 			enter: 'br',
 			buttons: overrideOptions || joditOptions,
@@ -50,8 +51,6 @@ const TitleInput: FC<ITextInput> = ({
 		[overrideOptions],
 	);
 
-	if (!modalData) return;
-
 	const handleClick = () => {
 		setState(!state);
 	};
@@ -63,14 +62,9 @@ const TitleInput: FC<ITextInput> = ({
 					<div className="flex items-end">
 						<JoditEditor
 							ref={editor}
-							value={modalData.title || initialText}
+							value={initialText}
 							config={config}
-							onBlur={(newContent) =>
-								setModalData({
-									...modalData,
-									title: newContent,
-								})
-							}
+							onBlur={(newContent) => onBlur(newContent)}
 						/>
 						<button
 							onClick={handleClick}
@@ -85,7 +79,7 @@ const TitleInput: FC<ITextInput> = ({
 				) : (
 					<div className="flex">
 						<Tag className={`max-h-[100px] max-w-[500px] truncate`}>
-							{modalData.title ? HTMLReactParser(modalData.title) : initialText}
+							{HTMLReactParser(initialText)}
 						</Tag>
 						<button
 							onClick={handleClick}

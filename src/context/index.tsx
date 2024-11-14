@@ -8,15 +8,19 @@ import { mockedData } from 'common/mockedData';
 import {
 	AppState,
 	CardIndicator,
+	characterOrLocationRelations,
+	eventRelations,
 	ICharacterCard,
+	ICharacterOrLocation,
 	IContextProps,
 	ILocationCard,
 	TimelineEvent,
 } from 'common/types';
 
-const mockedEvent = {
+const mockedEvent: TimelineEvent = {
 	id: uuid(),
-	title: 'Processing',
+	name: 'Processing',
+	tag: 'event',
 	description: 'some thing is writen in here',
 	date: '15/10/2020 14:00',
 	icon: 'pi pi-cog',
@@ -59,20 +63,11 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		setTimelineState({ ...timelineState, events: newList });
 	};
 
-	const setButtonVisibility = (currentEvent: TimelineEvent, value: boolean) => {
-		const clickedEventIndex = timelineState.events.indexOf(currentEvent);
-		const newList = timelineState.events.toSpliced(clickedEventIndex, 1, {
-			...currentEvent,
-			showButton: value,
-		});
-
-		setTimelineState({ ...timelineState, events: newList });
-	};
-
 	const modifyEvent = (newEvent: TimelineEvent) => {
 		setTimelineState((oldState) => {
 			const oldEvent = oldState.events.find((event) => event.id === newEvent.id);
 			if (!oldEvent) throw new Error('event non existing');
+
 			const eventIndex = oldState.events.indexOf(oldEvent);
 			const newState = {
 				...timelineState,
@@ -83,75 +78,166 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		});
 	};
 
-	const addCharacterOrLocation = (
-		currentEvent: TimelineEvent,
-		newEntry: ICharacterCard | ILocationCard,
-	) => {
-		const newEvent = currentEvent;
+	const setButtonVisibility = (currentEvent: TimelineEvent, value: boolean) => {
+		const clickedEventIndex = timelineState.events.indexOf(currentEvent);
+		const newList = timelineState.events.toSpliced(clickedEventIndex, 1, {
+			...currentEvent,
+			showButton: value,
+		});
 
-		if (newEntry?.tag === 'character') {
-			const repetedCharacter = newEvent.relatedCharacters.find(
-				(item) => item.id === newEntry.id,
-			);
-			if (!repetedCharacter) {
-				newEvent.relatedCharacters.push(newEntry);
-				modifyEvent(newEvent);
-			}
+		setTimelineState({ ...timelineState, events: newList });
+	};
+
+	const modifyCharacter = (newCharacter: ICharacterCard) => {
+		setTimelineState(oldState => {
+
+			const oldCharacter = oldState.charactersList.find((character) => character.id === newCharacter.id);
+
+			if (!oldCharacter) throw new Error('character non existing');
+			const characterIndex = oldState.charactersList.indexOf(oldCharacter);
+
+			const newState = {
+				...timelineState,
+				charactersList: timelineState.charactersList.toSpliced(characterIndex, 1, newCharacter),
+			};
+
+			return newState;
+		})
+	}
+
+	const modifyLocation = (newLocation: ILocationCard) => {
+		setTimelineState(oldState => {
+			const oldLocation = oldState.locationsList.find((location) => location.id === newLocation.id);
+			if (!oldLocation) throw new Error('location non existing');
+			const locationIndex = oldState.locationsList.indexOf(oldLocation);
+			const newState = {
+				...timelineState,
+				locationsList: timelineState.locationsList.toSpliced(locationIndex, 1, newLocation),
+			};
+
+			return newState;
+		})
+	}
+
+	const modifyEntity = (newEntity: TimelineEvent | ICharacterOrLocation) => {
+		switch (newEntity.tag) {
+			case 'character':
+				modifyCharacter(newEntity as ICharacterCard)
+				break;
+			case 'location':
+				modifyLocation(newEntity as ILocationCard)
+				break;
+			case 'event':
+				modifyEvent(newEntity as TimelineEvent)
+				break;
 		}
-		if (newEntry?.tag === 'location') {
-			const repetedLocation = newEvent.relatedLocations.find(
-				(item) => item.id === newEntry.id,
-			);
-			if (!repetedLocation) {
-				newEvent.relatedLocations.push(newEntry);
-				modifyEvent(newEvent);
-			}
+	}
+
+	const addRelation = (
+		entityToModify: TimelineEvent | ICharacterOrLocation,
+		newRelation: TimelineEvent | ICharacterOrLocation,
+	) => {
+		let newEntity;
+		let repetedRelation;
+		switch (entityToModify.tag) {
+			case 'event':
+				newEntity = entityToModify as TimelineEvent;
+
+				if (newRelation.tag === 'event') return;
+				repetedRelation = newEntity[eventRelations[newRelation.tag]].find((item) => item.id === newRelation.id);
+
+				if (!repetedRelation) {
+					newEntity[eventRelations[newRelation.tag]].push(newRelation);
+					modifyEvent(newEntity);
+				}
+				break;
+
+			case 'character':
+
+				newEntity = entityToModify as ICharacterCard;
+				repetedRelation = newEntity[characterOrLocationRelations[newRelation.tag]].find((item) => item.id === newRelation.id);
+
+				if (!repetedRelation) {
+					newEntity[characterOrLocationRelations[newRelation.tag]].push(newRelation);
+					modifyCharacter(newEntity);
+				}
+				break;
+
+			case 'location':
+				newEntity = entityToModify as ILocationCard;
+				repetedRelation = newEntity[characterOrLocationRelations[newRelation.tag]].find((item) => item.id === newRelation.id);
+
+				if (!repetedRelation) {
+					newEntity[characterOrLocationRelations[newRelation.tag]].push(newRelation);
+					modifyLocation(newEntity);
+				}
+				break;
 		}
 	};
 
-	const removeCharacterOrLocation = (
-		currentEvent: TimelineEvent,
+	const removeRelation = (
+		entityToModify: TimelineEvent | ICharacterOrLocation,
 		removing: CardIndicator,
-		tag: 'character' | 'location',
 	) => {
-		let newEvent;
+		let newEntity;
+		let itemInList;
+		let indexToRemove;
 
-		if (tag === 'character') {
-			const itemInList = currentEvent.relatedCharacters.find(
-				(item) => item.id === removing.id,
-			);
+		switch (entityToModify.tag) {
+			case 'event':
+				if (removing.tag === 'event') return;
 
-			if (!itemInList) throw new Error('no such item');
-			const indexToRemove = currentEvent.relatedCharacters.indexOf(itemInList);
+				itemInList = entityToModify[eventRelations[removing.tag]].find(
+					(item) => item.id === removing.id,
+				);
 
-			newEvent = {
-				...currentEvent,
-				relatedCharacters: currentEvent.relatedCharacters.toSpliced(
-					indexToRemove,
-					1,
-				),
-			};
+				if (!itemInList) throw new Error('no such item');
+				indexToRemove = entityToModify[eventRelations[removing.tag]].indexOf(itemInList);
 
-			modifyEvent(newEvent);
-		}
+				newEntity = {
+					...entityToModify,
+					[eventRelations[removing.tag]]: entityToModify[eventRelations[removing.tag]].toSpliced(
+						indexToRemove,
+						1,
+					),
+				} as TimelineEvent;
 
-		if (tag === 'location') {
-			const itemInList = currentEvent.relatedLocations.find(
-				(item) => item.id === removing.id,
-			);
-			if (!itemInList) throw new Error('no such item');
+				modifyEvent(newEntity);
+				break;
 
-			const indexToRemove = currentEvent.relatedLocations.indexOf(itemInList);
+			case 'character':
+				itemInList = entityToModify[characterOrLocationRelations[removing.tag]].find((item) => item.id === removing.id)
 
-			newEvent = {
-				...currentEvent,
-				relatedLocations: currentEvent.relatedLocations.toSpliced(
-					indexToRemove,
-					1,
-				),
-			};
+				if (!itemInList) throw new Error('no such item');
+				indexToRemove = entityToModify[characterOrLocationRelations[removing.tag]].indexOf(itemInList);
 
-			modifyEvent(newEvent);
+				newEntity = {
+					...entityToModify,
+					[characterOrLocationRelations[removing.tag]]: entityToModify[characterOrLocationRelations[removing.tag]].toSpliced(
+						indexToRemove,
+						1,
+					),
+				} as ICharacterCard;
+
+				modifyCharacter(newEntity);
+				break;
+
+			case 'location':
+				itemInList = entityToModify[characterOrLocationRelations[removing.tag]].find((item) => item.id === removing.id)
+
+				if (!itemInList) throw new Error('no such item');
+				indexToRemove = entityToModify[characterOrLocationRelations[removing.tag]].indexOf(itemInList);
+
+				newEntity = {
+					...entityToModify,
+					[characterOrLocationRelations[removing.tag]]: entityToModify[characterOrLocationRelations[removing.tag]].toSpliced(
+						indexToRemove,
+						1,
+					),
+				} as ILocationCard;
+
+				modifyLocation(newEntity);
+				break;
 		}
 	};
 
@@ -164,8 +250,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 				deleteEvent,
 				setButtonVisibility,
 				modifyEvent,
-				addCharacterOrLocation,
-				removeCharacterOrLocation,
+				modifyEntity,
+				addRelation,
+				removeRelation,
 			}}
 		>
 			{children}

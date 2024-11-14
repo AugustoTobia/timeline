@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 
 import { TiDelete, TiPlus } from 'react-icons/ti';
 
@@ -15,9 +15,7 @@ const CustomMarker = ({
 	addEvent,
 	deleteEvent,
 }: ICustomMarker) => {
-	useEffect(() => {
-		if (!timelineState) return;
-	}, [timelineState]);
+	if (!timelineState) return;
 
 	const currentEventIndex = timelineState.indexOf(item);
 
