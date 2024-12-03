@@ -11,6 +11,7 @@ import { useAppContext } from 'context';
 import { CustomMarker, EventPreviewCard } from 'components';
 
 import './customTimeline.css';
+import { newEmptyEntity } from 'common/utils';
 
 const CustomTimeline = () => {
 	const { timelineState, addEvent, deleteEvent, setButtonVisibility } =
@@ -28,7 +29,6 @@ const CustomTimeline = () => {
 							timelineState={timelineState.events}
 							item={item}
 							setButtonVisibility={setButtonVisibility}
-							addEvent={addEvent}
 							deleteEvent={deleteEvent}
 						/>
 					)}
@@ -39,7 +39,7 @@ const CustomTimeline = () => {
 			) : (
 				<button
 					className="border-circle z-1 mx-auto mb-[2px] flex h-[1rem] w-[1rem] bg-black text-white"
-					onClick={() => addEvent(0, true)}
+					onClick={() => addEvent(0, true, newEmptyEntity('event'))}
 				>
 					<TiPlus size={'100%'} />
 				</button>

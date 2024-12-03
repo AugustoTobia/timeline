@@ -4,7 +4,6 @@ import {
 	createContext,
 	useContext,
 	useEffect,
-	useReducer,
 	useState,
 } from 'react';
 
@@ -22,15 +21,16 @@ import {
 	entities,
 	entityRelation,
 } from 'common/types';
+import { PrimeIcons } from 'primereact/api';
+import { randomColor } from 'common/utils';
 
 const mockedEvent: TimelineEvent = {
 	id: uuid(),
 	name: 'Processing',
 	tag: 'event',
 	description: 'some thing is writen in here',
-	date: '15/10/2020 14:00',
 	icon: 'pi pi-cog',
-	color: '#673AB7',
+	color: randomColor(),
 	relatedCharacters: [],
 	relatedLocations: [],
 	relatedEvents: [],
@@ -52,20 +52,27 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		localStorage.setItem('timelineState', JSON.stringify(timelineState));
 	}, [timelineState]);
 
-	const addEvent = (clickedEventIndex: number, addAfterEvent: boolean) => {
+	const addEvent = (clickedEventIndex: number, addAfterEvent: boolean, newEvent: ICard) => {
+		console.log(clickedEventIndex, addAfterEvent, newEvent);
+		const filledEvent = {
+			...newEvent,
+			icon: PrimeIcons.CIRCLE,
+			color: randomColor(),
+			showButton: false,
+		} as TimelineEvent;
 		const afterIndex = clickedEventIndex + 1;
 		let newList = [];
 
 		if (addAfterEvent) {
 			newList = [
 				...timelineState.events.slice(0, afterIndex),
-				mockedEvent,
+				filledEvent,
 				...timelineState.events.slice(afterIndex),
 			];
 		} else {
 			newList = [
 				...timelineState.events.slice(0, clickedEventIndex),
-				mockedEvent,
+				filledEvent,
 				...timelineState.events.slice(clickedEventIndex),
 			];
 		}
@@ -82,7 +89,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
 			const eventIndex = oldState.events.indexOf(oldEvent);
 			const newState = {
-				...timelineState,
+				...oldState,
 				events: oldState.events.toSpliced(eventIndex, 1, newEvent),
 			};
 
@@ -165,33 +172,37 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
 	const addRelation = (entityToUpdate: ICard, newRelation: ICard) => {
 		let newEntity = entityToUpdate;
+		let newMirrorRelation;
+
 		const repeatedRelation = newEntity[entityRelation[newRelation.tag]].find(
 			(item) => item.id === newRelation.id,
 		);
-		let newMirrorRelation;
+
+
 		const repeatedMirrorRelation = newRelation[
 			entityRelation[newEntity.tag]
 		].find((item) => item.id === newEntity.id);
 
-		if (repeatedRelation || entityToUpdate.id === newRelation.id) return;
-
-		newEntity[entityRelation[newRelation.tag]].push(newRelation);
-		modifyEntity(newEntity);
-
-		if (repeatedMirrorRelation) return;
-
-		newMirrorRelation = {
-			...newRelation,
-			[entityRelation[newEntity.tag]]: [
-				...newRelation[entityRelation[newEntity.tag]],
-				{
-					id: newEntity.id,
-					name: newEntity.name,
-					tag: newEntity.tag,
-				},
-			],
+		if (!repeatedRelation && entityToUpdate.id !== newRelation.id) {
+			newEntity[entityRelation[newRelation.tag]].push(newRelation);
+			modifyEntity(newEntity);
 		};
-		modifyEntity(newMirrorRelation);
+
+
+		if (!repeatedMirrorRelation) {
+			newMirrorRelation = {
+				...newRelation,
+				[entityRelation[newEntity.tag]]: [
+					...newRelation[entityRelation[newEntity.tag]],
+					{
+						id: newEntity.id,
+						name: newEntity.name,
+						tag: newEntity.tag,
+					},
+				],
+			};
+			modifyEntity(newMirrorRelation);
+		}
 	};
 
 	const removeRelation = (entity: ICard, relation: CardIndicator) => {
@@ -199,7 +210,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 			(item) => item.id === entity.id,
 		);
 		const relationInState = timelineState[entities[relation.tag]].find(
-			(item) => item.id === relation.id,
+			(item) => item.id === relation.id
 		);
 		if (!entityInState || !relationInState) return;
 
@@ -220,7 +231,17 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 		modifyEntity(newEntity);
 	};
 
-	const createEntity = (newEntity: ICard) => {
+	const createEntity = (entityData: ICard) => {
+		let newEntity = entityData;
+		if (entityData.tag === 'event') {
+			newEntity = {
+				...entityData,
+				icon: 'default',
+				color: randomColor(),
+				showButton: false,
+			} as TimelineEvent
+		}
+
 		const newState = {
 			...timelineState,
 			[entities[newEntity.tag]]: [
@@ -229,6 +250,26 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 			],
 		};
 		setTimelineState(newState);
+
+		newEntity.relatedCharacters.map(relation => {
+			const relationInState = timelineState[entities[relation.tag]].find(
+				(item) => item.id === relation.id
+			);
+
+			addRelation(newEntity, relationInState as ICard)
+		})
+		newEntity.relatedLocations.map(relation => {
+			const relationInState = timelineState[entities[relation.tag]].find(
+				(item) => item.id === relation.id
+			);
+			addRelation(newEntity, relationInState as ICard)
+		})
+		newEntity.relatedEvents.map(relation => {
+			const relationInState = timelineState[entities[relation.tag]].find(
+				(item) => item.id === relation.id
+			);
+			addRelation(newEntity, relationInState as ICard)
+		})
 	};
 
 	const deleteEntity = (entityToDelete: ICard) => {
@@ -264,6 +305,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 					entityRelation[entityToDelete.tag]
 				].filter((item) => item.id !== entityToDelete.id),
 			};
+
 			return cleanEvent;
 		});
 

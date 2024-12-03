@@ -16,19 +16,24 @@ import {
 	entityRelation,
 } from 'common/types';
 import { useAppContext } from 'context';
+import { useModalContext } from 'context/modalContext';
 
 const RelationsDropdown: FC<{
-	currentEntity: ICard;
 	options: ILocationCard[] | ICharacterCard[] | TimelineEvent[];
-}> = ({ currentEntity, options }) => {
+}> = ({ options }) => {
 	const [isOpen, setIsOpen] = useState(false);
+	const { updateModalEntity, modalData } = useModalContext()
 	const { addRelation } = useAppContext();
+	const { entityData, action } = modalData;
+
+	const currentRelations = entityData[entityRelation[options[0].tag]]
 
 	const handleSelect = (optionId: string | undefined) => {
 		try {
 			const selectedOption = options.find((item) => item.id === optionId);
-			if (selectedOption && currentEntity.name) {
-				addRelation(currentEntity, selectedOption);
+			if (selectedOption && entityData.name) {
+				action === 'add' ? updateModalEntity({ ...entityData, [entityRelation[options[0].tag]]: [...currentRelations, selectedOption] })
+					: addRelation(entityData, selectedOption);
 			} else {
 				throw new Error('A name is required');
 			}
@@ -40,10 +45,10 @@ const RelationsDropdown: FC<{
 
 	const filteredOptions = () => {
 		return options.reduce((list, item) => {
-			const itemFound = currentEntity[entityRelation[options[0].tag]].find(
+			const itemFound = entityData[entityRelation[options[0].tag]].find(
 				(option) => item.id === option.id,
 			);
-			if (!itemFound && item.id !== currentEntity.id) list = [...list, item];
+			if (!itemFound && item.id !== entityData.id) list = [...list, item];
 			return list;
 		}, [] as CardIndicator[]);
 	};

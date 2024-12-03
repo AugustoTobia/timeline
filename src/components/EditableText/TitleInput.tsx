@@ -56,7 +56,6 @@ const TitleInput: FC<ITextInput> = ({
 							value={initialText}
 							config={config}
 							onBlur={(newContent) => {
-								console.log('HI', newContent);
 								onBlur(newContent);
 							}}
 						/>

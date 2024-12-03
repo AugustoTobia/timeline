@@ -1,29 +1,45 @@
 'use client';
 
-import React, { useEffect, useLayoutEffect } from 'react';
+import React from 'react';
 
 import { TiDelete, TiPlus } from 'react-icons/ti';
 
-import { ICustomMarker } from 'common/types';
+import { ICustomMarker, ModalData } from 'common/types';
 
 import './CustomMarker.css';
+import { useModalContext } from 'context/modalContext';
+import { newEmptyEntity } from 'common/utils';
+import { useAppContext } from 'context';
 
 const CustomMarker = ({
 	item,
 	timelineState,
 	setButtonVisibility,
-	addEvent,
 	deleteEvent,
 }: ICustomMarker) => {
-	if (!timelineState) return;
+	const { addEvent } = useAppContext();
+	const { openModal } = useModalContext();
 
+	if (!timelineState) return;
 	const currentEventIndex = timelineState.indexOf(item);
+
+	const callbakAddEventBefore = (data: ModalData) => {
+		addEvent(currentEventIndex, false, data.entityData)
+	}
+
+	const callbakAddEventAfter = (data: ModalData) => {
+		addEvent(currentEventIndex, true, data.entityData)
+	}
 
 	return (
 		<div>
 			<button
 				className="border-circle z-1 mx-auto mb-[2px] flex h-[1rem] w-[1rem] bg-black text-white"
-				onClick={() => addEvent(currentEventIndex, false)}
+				onClick={() => openModal({
+					callbackOnClose: callbakAddEventBefore,
+					entityData: newEmptyEntity('event'),
+					action: 'add'
+				})}
 			>
 				<TiPlus size={'100%'} />
 			</button>
@@ -38,7 +54,11 @@ const CustomMarker = ({
 			</button>
 			<button
 				className="border-circle z-1 mx-auto mt-[2px] flex h-[1rem] w-[1rem] bg-black text-white"
-				onClick={() => addEvent(currentEventIndex, true)}
+				onClick={() => openModal({
+					callbackOnClose: callbakAddEventAfter,
+					entityData: newEmptyEntity('event'),
+					action: 'add'
+				})}
 			>
 				<TiPlus size={'100%'} />
 			</button>

@@ -7,7 +7,6 @@ export interface AppState {
 }
 
 export interface TimelineEvent extends EventCard {
-	date?: string;
 	icon?: string;
 	color?: string;
 	showButton?: boolean;
@@ -32,7 +31,7 @@ export interface IContextProps {
 	timelineState: AppState;
 	setButtonVisibility: (currentEvent: TimelineEvent, value: boolean) => void;
 	setTimelineState: Dispatch<AppState>;
-	addEvent: (currentEvent: number, addAfterEvent: boolean) => void;
+	addEvent: (currentEvent: number, addAfterEvent: boolean, newEvent: ICard) => void;
 	deleteEvent: (currentEvent: TimelineEvent) => void;
 	modifyEvent: (newEvent: TimelineEvent) => void;
 	addRelation: (currentEvent: ICard, newEntry: ICard) => void;
@@ -75,18 +74,21 @@ export interface ICustomMarker {
 	item: TimelineEvent;
 	timelineState: TimelineEvent[];
 	setButtonVisibility: (currentEvent: TimelineEvent, value: boolean) => void;
-	addEvent: (currentEvent: number, after: boolean) => void;
 	deleteEvent: (currentEvent: TimelineEvent) => void;
 }
 
 export interface ModalData {
 	entityData: ICard;
 	action: 'edit' | 'add' | 'delete';
+	callbackOnClose?: (entityData: ModalData) => void;
 }
 export interface IModalContextProps {
 	openModal: (eventData: ModalData) => void;
 	closeModal: (data?: ModalData) => void;
 	setModalData: (newData: ModalData) => void;
+	updateModalAction: (newAction: 'add' | 'edit' | 'delete') => void;
+	updateModalEntity: (newEntity: ICard) => void;
+	closeWithCallback: () => void;
 	isModalOpen: boolean;
 	modalData: ModalData;
 }

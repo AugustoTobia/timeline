@@ -26,6 +26,7 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 	const [modalData, setModalData] = useState<ModalData>({
 		entityData: baseData,
 		action: 'edit',
+		callbackOnClose: () => { }
 	});
 	const { modifyEntity, createEntity, deleteEntity } = useAppContext();
 
@@ -33,6 +34,16 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 		setModalData(eventData);
 		setModal(true);
 	};
+
+	const updateModalEntity = (newEntity: ICard) => setModalData({ ...modalData, entityData: newEntity })
+	const updateModalAction = (newAction: "edit" | "add" | "delete") => setModalData({ ...modalData, action: newAction })
+
+	const closeWithCallback = () => {
+		modalData.callbackOnClose &&
+			modalData.callbackOnClose(modalData);
+
+		setModal(false)
+	}
 
 	const closeModal = (data?: ModalData) => {
 		if (!data) {
@@ -68,6 +79,9 @@ export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
 				setModalData,
 				isModalOpen,
 				modalData,
+				updateModalAction,
+				updateModalEntity,
+				closeWithCallback
 			}}
 		>
 			{children}

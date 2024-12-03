@@ -1,4 +1,6 @@
 import { AppState } from './types';
+import { PrimeIcons } from 'primereact/api';
+import { randomColor } from './utils';
 
 export const mockedData: AppState = {
 	events: [
@@ -6,10 +8,9 @@ export const mockedData: AppState = {
 			id: '11',
 			name: 'Race on the great white',
 			description: 'A Race hosted on the great salar',
-			date: '15/10/2020 10: 30',
-			icon: 'pi pi-shopping-cart',
+			icon: PrimeIcons.CIRCLE_FILL,
 			tag: 'event',
-			color: '#9C27B0',
+			color: randomColor(),
 			relatedCharacters: [
 				{
 					id: '21',
@@ -36,10 +37,9 @@ export const mockedData: AppState = {
 			id: '12',
 			name: 'Processing',
 			description: 'some thing is writen in here',
-			date: '15/10/2020 14: 00',
-			icon: 'pi pi-cog',
+			icon: PrimeIcons.CIRCLE_FILL,
 			tag: 'event',
-			color: '#673AB7',
+			color: randomColor(),
 			relatedCharacters: [],
 			relatedLocations: [],
 			relatedEvents: [],
@@ -49,10 +49,9 @@ export const mockedData: AppState = {
 			id: '13',
 			name: 'Shipped',
 			description: 'some thing is writen in here',
-			date: '15/10/2020 16: 15',
-			icon: 'pi pi-shopping-cart',
+			icon: PrimeIcons.CIRCLE_FILL,
 			tag: 'event',
-			color: '#FF9800',
+			color: randomColor(),
 			relatedCharacters: [],
 			relatedLocations: [],
 			relatedEvents: [],
@@ -62,10 +61,9 @@ export const mockedData: AppState = {
 			id: '14',
 			name: 'Delivered',
 			description: 'some thing is writen in here',
-			date: '16/10/2020 10: 00',
-			icon: 'pi pi-check',
+			icon: PrimeIcons.CIRCLE_FILL,
 			tag: 'event',
-			color: '#607D8B',
+			color: randomColor(),
 			relatedCharacters: [],
 			relatedLocations: [],
 			relatedEvents: [],

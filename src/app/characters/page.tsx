@@ -2,28 +2,21 @@
 
 import React, { useEffect } from 'react';
 
-import { v4 as uuid } from 'uuid';
-
-import { ICard } from 'common/types';
 import { useAppContext } from 'context';
 import { useModalContext } from 'context/modalContext';
 
+import { newEmptyEntity } from 'common/utils';
 import { PreviewCard } from 'components/';
+import { ModalData } from 'common/types';
 
 const page = () => {
-	const { timelineState } = useAppContext();
+	const { timelineState, createEntity } = useAppContext();
 	const { openModal } = useModalContext();
-	useEffect(() => {}, [timelineState]);
+	useEffect(() => { }, [timelineState]);
 
-	let baseData: ICard = {
-		id: uuid(),
-		name: '',
-		tag: 'character',
-		description: '',
-		relatedCharacters: [],
-		relatedLocations: [],
-		relatedEvents: [],
-	};
+	const handleCloseModal = (data: ModalData) => {
+		createEntity(data.entityData)
+	}
 
 	return (
 		<>
@@ -38,7 +31,11 @@ const page = () => {
 				})}
 			</ul>
 			<button
-				onClick={() => openModal({ entityData: baseData, action: 'add' })}
+				onClick={() => openModal({
+					callbackOnClose: handleCloseModal,
+					entityData: newEmptyEntity('character'),
+					action: 'add'
+				})}
 			>
 				CLICK
 			</button>

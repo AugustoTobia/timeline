@@ -11,16 +11,10 @@ import { useModalContext } from 'context/modalContext';
 import { ParagraphInput, RelationsDropdown, TitleInput } from 'components';
 
 const EntityCard: FC = () => {
-	const { removeRelation, timelineState, modifyEntity } = useAppContext();
-	const { modalData, setModalData, closeModal } = useModalContext();
+	const { removeRelation, timelineState } = useAppContext();
+	const { modalData, setModalData, closeModal, closeWithCallback } = useModalContext();
 	const { entityData } = modalData;
-
-	const handleCloseModal = () => {
-		if (modalData.entityData) {
-			modifyEntity(modalData.entityData);
-		}
-		closeModal(modalData);
-	};
+	
 	return (
 		<div className="max-w-1/2 m-auto flex flex-col items-center rounded-xl bg-white p-2 shadow ring md:flex-row">
 			<div className="flex w-5/6 min-w-[200px] flex-col items-center lg:min-w-[500px]">
@@ -60,7 +54,9 @@ const EntityCard: FC = () => {
 						Delete
 					</button>
 				)}
-				<button onClick={() => handleCloseModal()}>Confirm</button>
+				<button onClick={() => closeWithCallback()}>
+					Confirm
+				</button>
 			</div>
 
 			<div className="space-between flex flex-wrap items-start gap-x-2 md:flex-col">
@@ -68,7 +64,6 @@ const EntityCard: FC = () => {
 					className={`no-wrap max-h-1/2 scrollbar flex w-full flex-col items-center overflow-x-hidden overflow-y-scroll`}
 				>
 					<RelationsDropdown
-						currentEntity={entityData}
 						options={timelineState.charactersList}
 					/>
 					<ul className="w-full p-2">
@@ -94,7 +89,6 @@ const EntityCard: FC = () => {
 				</div>
 				<div className="no-wrap max-h-1/2 scrollbar flex w-full flex-col items-center overflow-y-scroll">
 					<RelationsDropdown
-						currentEntity={entityData}
 						options={timelineState.locationsList}
 					/>
 					<ul className="w-full p-2">
@@ -118,10 +112,9 @@ const EntityCard: FC = () => {
 						})}
 					</ul>
 				</div>
-				{entityData && entityData.name !== 'event' && (
+				{entityData && entityData.tag !== 'event' && (
 					<div className="no-wrap max-h-1/2 scrollbar flex w-full flex-col items-center overflow-y-scroll">
 						<RelationsDropdown
-							currentEntity={entityData}
 							options={timelineState.events}
 						/>
 						<ul className="w-full p-2">
