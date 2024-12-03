@@ -1,30 +1,30 @@
 'use client';
 
-import React, { FC, useMemo, useRef, useState } from 'react';
+import React, { FC, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import HTMLReactParser from 'html-react-parser/lib/index';
-import JoditEditor, { IJoditEditorProps } from 'jodit-react';
+import JoditEditor, { IJoditEditorProps, Jodit } from 'jodit-react';
+import toast from 'react-hot-toast';
 import { TiEdit, TiInputChecked } from 'react-icons/ti';
 
 import { joditOptions } from 'common/consts';
 import { ITextInput } from 'common/types';
-import { useModalContext } from 'context/modalContext';
 
 const TitleInput: FC<ITextInput> = ({
 	className = '',
 	initialText = 'Start Typing!',
 	semanticTag: Tag = 'div',
 	overrideOptions,
-	onBlur
+	onBlur,
 }) => {
 	const editor = useRef(null);
-
 	const [state, setState] = useState(false);
+
+	// TODO - Jodit fires an error when destroying the modal component while editing it's content. I need to find an alternative.
 
 	const config = useMemo<IJoditEditorProps['config']>(
 		() => ({
-			readonly: false,
-			placeholder: '',
+			inline: true,
 			defaultActionOnPaste: 'insert_as_text',
 			beautifyHTML: true,
 			defaultLineHeight: 1.5,
@@ -34,26 +34,17 @@ const TitleInput: FC<ITextInput> = ({
 			buttonsSM: overrideOptions || joditOptions,
 			buttonsXS: overrideOptions || joditOptions,
 			statusbar: false,
-			maxWidth: 500,
-			height: 50,
-			minWidth: 200,
-			minHeight: 50,
-			sizeLG: 900,
-			sizeMD: 700,
-			sizeSM: 400,
 			toolbar: false,
-			limitChars: 100,
-			className: 'min-h-[100px] h-[100px]',
+			toolbarInline: true,
+			limitChars: 35,
 			editorClassName: 'titleEditor text-center',
 			allowResizeY: false,
+			showXPathInStatusbar: false,
 			hidePoweredByJodit: true,
+			disablePlugins: 'add-new-line',
 		}),
 		[overrideOptions],
 	);
-
-	const handleClick = () => {
-		setState(!state);
-	};
 
 	return (
 		<div className={`${className}`}>
@@ -64,10 +55,13 @@ const TitleInput: FC<ITextInput> = ({
 							ref={editor}
 							value={initialText}
 							config={config}
-							onBlur={(newContent) => onBlur(newContent)}
+							onBlur={(newContent) => {
+								console.log('HI', newContent);
+								onBlur(newContent);
+							}}
 						/>
 						<button
-							onClick={handleClick}
+							onClick={() => setState(!state)}
 							className="flex"
 						>
 							<TiInputChecked
@@ -82,7 +76,7 @@ const TitleInput: FC<ITextInput> = ({
 							{HTMLReactParser(initialText)}
 						</Tag>
 						<button
-							onClick={handleClick}
+							onClick={() => setState(!state)}
 							className="ml-2 flex self-end"
 						>
 							<TiEdit

@@ -2,22 +2,24 @@
 
 import React from 'react';
 
-import { entities, ICharacterOrLocation, TimelineEvent } from 'common/types';
+import { ICard, entities } from 'common/types';
 import { trimText } from 'common/utils';
 import { useAppContext } from 'context';
 import { useModalContext } from 'context/modalContext';
 
-const PreviewCard = (cardInfo: ICharacterOrLocation | TimelineEvent) => {
+const PreviewCard = (cardInfo: ICard) => {
 	const { id, name, description, tag } = cardInfo;
 	const { openModal } = useModalContext();
 	const { timelineState } = useAppContext();
 
-	const handleClick = (itemId: string, entityType: 'location' | 'character' | 'event') => {
-
+	const handleClick = (
+		itemId: string,
+		entityType: 'location' | 'character' | 'event',
+	) => {
 		const clickedEvent = timelineState[entities[entityType]].find(
 			(event) => event.id === itemId,
 		);
-		if (clickedEvent) openModal(clickedEvent);
+		if (clickedEvent) openModal({ entityData: clickedEvent, action: 'edit' });
 		else {
 			throw new Error('No event found');
 		}

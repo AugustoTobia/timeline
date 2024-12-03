@@ -2,34 +2,78 @@
 
 import { createContext, useContext, useState } from 'react';
 
-import { ICharacterOrLocation, IModalContextProps, TimelineEvent } from 'common/types';
+import toast from 'react-hot-toast';
+
+import { ICard, IModalContextProps, ModalData } from 'common/types';
+import { useAppContext } from 'context';
+
+import { ClientOnlyPortal, ModalContainer } from '../components';
+
+const baseData: ICard = {
+	id: '',
+	name: '',
+	tag: 'character',
+	description: '',
+	relatedCharacters: [],
+	relatedLocations: [],
+	relatedEvents: [],
+};
 
 export const ModalContext = createContext<IModalContextProps | null>(null);
 
 export const ModalProvider = ({ children }: { children: React.ReactNode }) => {
-	const [isModalOpen, setModal] = useState<boolean>(true);
-	const [modalData, setModalData] = useState<TimelineEvent | ICharacterOrLocation | null>(null);
+	const [isModalOpen, setModal] = useState<boolean>(false);
+	const [modalData, setModalData] = useState<ModalData>({
+		entityData: baseData,
+		action: 'edit',
+	});
+	const { modifyEntity, createEntity, deleteEntity } = useAppContext();
 
-	const handleOpenModal = (eventData: TimelineEvent | ICharacterOrLocation) => {
+	const openModal = (eventData: ModalData) => {
 		setModalData(eventData);
 		setModal(true);
 	};
 
-	const handleCloseModal = () => {
+	const closeModal = (data?: ModalData) => {
+		if (!data) {
+			setModal(false);
+			return;
+		}
+
+		switch (data.action) {
+			case 'add':
+				if (!data.entityData.name) {
+					toast.error('A name is required');
+					return;
+				}
+				createEntity(data.entityData);
+				break;
+			case 'edit':
+				if (data.entityData) {
+					modifyEntity(data.entityData);
+				}
+				break;
+			case 'delete':
+				deleteEntity(data.entityData);
+				break;
+		}
 		setModal(false);
 	};
 
 	return (
 		<ModalContext.Provider
 			value={{
-				openModal: handleOpenModal,
-				closeModal: handleCloseModal,
+				openModal,
+				closeModal,
 				setModalData,
 				isModalOpen,
 				modalData,
 			}}
 		>
 			{children}
+			<ClientOnlyPortal>
+				<ModalContainer data={modalData} />
+			</ClientOnlyPortal>
 		</ModalContext.Provider>
 	);
 };

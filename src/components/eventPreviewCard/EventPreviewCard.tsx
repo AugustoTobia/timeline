@@ -11,12 +11,11 @@ const EventPreviewCard = (cardInfo: TimelineEvent) => {
 	const { id, name, description } = cardInfo;
 	const { openModal } = useModalContext();
 	const { timelineState } = useAppContext();
-
 	const handleClick = (itemId: string) => {
 		const clickedEvent = timelineState.events.find(
 			(event) => event.id === itemId,
 		);
-		if (clickedEvent) openModal(clickedEvent);
+		if (clickedEvent) openModal({ entityData: clickedEvent, action: 'edit' });
 		else {
 			throw new Error('No event found');
 		}

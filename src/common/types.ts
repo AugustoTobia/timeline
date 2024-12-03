@@ -25,6 +25,7 @@ export interface ICard {
 	description: string;
 	relatedCharacters: CardIndicator[];
 	relatedLocations: CardIndicator[];
+	relatedEvents: CardIndicator[];
 }
 
 export interface IContextProps {
@@ -34,9 +35,11 @@ export interface IContextProps {
 	addEvent: (currentEvent: number, addAfterEvent: boolean) => void;
 	deleteEvent: (currentEvent: TimelineEvent) => void;
 	modifyEvent: (newEvent: TimelineEvent) => void;
-	addRelation: (currentEvent: TimelineEvent | ICharacterOrLocation, newEntry: ICharacterOrLocation | TimelineEvent) => void;
-	removeRelation: (currentEvent: TimelineEvent | ICharacterOrLocation, newEntry: CardIndicator) => void;
-	modifyEntity: (newEntity: TimelineEvent | ICharacterOrLocation) => void;
+	addRelation: (currentEvent: ICard, newEntry: ICard) => void;
+	removeRelation: (currentEvent: ICard, newEntry: CardIndicator) => void;
+	modifyEntity: (newEntity: ICard) => void;
+	createEntity: (newEntity: ICard) => void;
+	deleteEntity: (entityToDelete: ICard) => void;
 }
 
 export type Props = {
@@ -54,14 +57,11 @@ export interface ITextInput {
 	onBlur: (newConter: string) => void;
 }
 
-export interface ICharacterOrLocation extends ICard {
-	relatedEvents: CardIndicator[];
-}
-export interface ICharacterCard extends ICharacterOrLocation {
+export interface ICharacterCard extends ICard {
 	tag: 'character';
 }
 
-export interface ILocationCard extends ICharacterOrLocation {
+export interface ILocationCard extends ICard {
 	tag: 'location';
 }
 
@@ -79,13 +79,18 @@ export interface ICustomMarker {
 	deleteEvent: (currentEvent: TimelineEvent) => void;
 }
 
-export interface IModalContextProps {
-	openModal: (eventData: TimelineEvent | ICharacterOrLocation) => void;
-	closeModal: () => void;
-	setModalData: (newData: TimelineEvent | ICharacterOrLocation) => void;
-	isModalOpen: boolean;
-	modalData: TimelineEvent | ICharacterOrLocation | null;
+export interface ModalData {
+	entityData: ICard;
+	action: 'edit' | 'add' | 'delete';
 }
+export interface IModalContextProps {
+	openModal: (eventData: ModalData) => void;
+	closeModal: (data?: ModalData) => void;
+	setModalData: (newData: ModalData) => void;
+	isModalOpen: boolean;
+	modalData: ModalData;
+}
+
 
 export enum entities {
 	location = 'locationsList',
@@ -93,11 +98,7 @@ export enum entities {
 	event = 'events'
 }
 
-export enum eventRelations {
-	character = 'relatedCharacters',
-	location = 'relatedLocations',
-}
-export enum characterOrLocationRelations {
+export enum entityRelation {
 	character = 'relatedCharacters',
 	location = 'relatedLocations',
 	event = 'relatedEvents'

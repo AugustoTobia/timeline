@@ -13,12 +13,8 @@ import { CustomMarker, EventPreviewCard } from 'components';
 import './customTimeline.css';
 
 const CustomTimeline = () => {
-	const {
-		timelineState,
-		addEvent,
-		deleteEvent,
-		setButtonVisibility,
-	} = useAppContext();
+	const { timelineState, addEvent, deleteEvent, setButtonVisibility } =
+		useAppContext();
 
 	return (
 		<div className="card flex items-center">

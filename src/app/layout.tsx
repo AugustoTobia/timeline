@@ -6,10 +6,10 @@ import 'primeicons/primeicons.css';
 import { PrimeReactProvider } from 'primereact/api';
 import 'primereact/resources/primereact.css';
 import 'primereact/resources/themes/lara-light-cyan/theme.css';
+import { Toaster } from 'react-hot-toast';
 
 import { AppProvider } from 'context';
 import { ModalProvider } from 'context/modalContext';
-import { EditPopup } from 'components';
 
 import './globals.css';
 
@@ -22,12 +22,15 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<html lang="en">
 			<body className={`antialiased`}>
-				<div id='modal-container' className='absolute' />
+				<div
+					id="modal-container"
+					className="absolute"
+				/>
 				<PrimeReactProvider>
 					<AppProvider>
 						<ModalProvider>
 							{children}
-							<EditPopup />
+							<Toaster />
 						</ModalProvider>
 					</AppProvider>
 				</PrimeReactProvider>

@@ -15,14 +15,17 @@ const ParagraphInput: FC<ITextInput> = ({
 	initialText = 'Start Typing!',
 	semanticTag: Tag = 'div',
 	overrideOptions,
-	onBlur
+	onBlur,
 }) => {
 	const editor = useRef(null);
 
 	const [state, setState] = useState(false);
 
+	// TODO - Jodit fires an error when destroying the modal component while editing it's content. I need to find an alternative.
+
 	const config = useMemo<IJoditEditorProps['config']>(
 		() => ({
+			inline: false,
 			readonly: false,
 			placeholder: '',
 			defaultActionOnPaste: 'insert_as_text',
@@ -43,6 +46,7 @@ const ParagraphInput: FC<ITextInput> = ({
 			sizeSM: 400,
 			toolbarAdaptive: false,
 			indentMargin: 10,
+			allowResizeY: false,
 			editorClassName: 'scrollbar',
 		}),
 		[overrideOptions],

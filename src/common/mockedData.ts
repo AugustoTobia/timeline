@@ -29,6 +29,7 @@ export const mockedData: AppState = {
 					tag: 'location',
 				},
 			],
+			relatedEvents: [],
 			showButton: false,
 		},
 		{
@@ -41,6 +42,7 @@ export const mockedData: AppState = {
 			color: '#673AB7',
 			relatedCharacters: [],
 			relatedLocations: [],
+			relatedEvents: [],
 			showButton: false,
 		},
 		{
@@ -53,6 +55,7 @@ export const mockedData: AppState = {
 			color: '#FF9800',
 			relatedCharacters: [],
 			relatedLocations: [],
+			relatedEvents: [],
 			showButton: false,
 		},
 		{
@@ -65,6 +68,7 @@ export const mockedData: AppState = {
 			color: '#607D8B',
 			relatedCharacters: [],
 			relatedLocations: [],
+			relatedEvents: [],
 			showButton: false,
 		},
 	],
@@ -93,7 +97,6 @@ export const mockedData: AppState = {
 					id: '31',
 					name: 'The great salar',
 					tag: 'location',
-
 				},
 			],
 		},
@@ -122,7 +125,6 @@ export const mockedData: AppState = {
 					id: '31',
 					name: 'The great salar',
 					tag: 'location',
-
 				},
 				{
 					id: '32',
@@ -136,6 +138,38 @@ export const mockedData: AppState = {
 				},
 			],
 		},
+		{
+			id: '23',
+			name: 'The living wagon',
+			tag: 'character',
+			description: 'A mimic in a form of a wagon',
+			relatedEvents: [
+				{
+					id: '11',
+					tag: 'event',
+					name: 'Race on the great white',
+				},
+			],
+			relatedCharacters: [
+				{
+					id: '21',
+					tag: 'character',
+					name: 'Bob Bubleboms',
+				},
+				{
+					id: '22',
+					tag: 'character',
+					name: 'Sonrisas',
+				},
+			],
+			relatedLocations: [
+				{
+					id: '31',
+					name: 'The great salar',
+					tag: 'location',
+				},
+			],
+		},
 	],
 	locationsList: [
 		{
@@ -145,36 +179,36 @@ export const mockedData: AppState = {
 			description: 'A little gnome addicted to speed',
 			relatedEvents: [
 				{
-					id: '1',
+					id: '11',
 					tag: 'event',
 					name: 'Race on the great white',
 				},
 			],
 			relatedCharacters: [
 				{
-					id: '1',
+					id: '22',
 					tag: 'character',
 					name: 'Sonrisas',
 				},
 				{
 					tag: 'character',
 					name: 'Bob Bubbleboms',
-					id: '0',
+					id: '21',
 				},
 			],
 			relatedLocations: [
 				{
-					id: '1',
+					id: '31',
 					name: 'The great salar',
 					tag: 'location',
 				},
 				{
-					id: '1',
+					id: '32',
 					name: 'The Old Mountain',
 					tag: 'location',
 				},
 				{
-					id: '1',
+					id: '33',
 					name: 'The Red forest',
 					tag: 'location',
 				},
@@ -196,7 +230,7 @@ export const mockedData: AppState = {
 				{
 					id: '22',
 					name: 'Sonrisas',
-					tag: 'character'
+					tag: 'character',
 				},
 				{
 					name: 'Bob Bubbleboms',
@@ -206,7 +240,7 @@ export const mockedData: AppState = {
 			],
 			relatedLocations: [
 				{
-					id: '11',
+					id: '31',
 					name: 'The great salar',
 					tag: 'location',
 				},
