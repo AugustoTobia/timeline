@@ -22,7 +22,6 @@ export const randomColor = () => {
 	const red = Math.floor(Math.random() * 255).toString(16)
 	const green = Math.floor(Math.random() * 255).toString(16)
 	const blue = Math.floor(Math.random() * 255).toString(16)
-	console.log(`#${red}${green}${blue}`);
 	
 	return `#${red}${green}${blue}`
 }

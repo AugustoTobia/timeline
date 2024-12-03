@@ -53,7 +53,6 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
 	}, [timelineState]);
 
 	const addEvent = (clickedEventIndex: number, addAfterEvent: boolean, newEvent: ICard) => {
-		console.log(clickedEventIndex, addAfterEvent, newEvent);
 		const filledEvent = {
 			...newEvent,
 			icon: PrimeIcons.CIRCLE,
